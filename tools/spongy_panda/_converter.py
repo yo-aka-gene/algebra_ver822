@@ -11,7 +11,7 @@ def numpy2sdf(
     columns: list = None
 ) -> SparseDF:
     
-    assert len(array.shape) >= 3, \
+    assert len(array.shape) < 3, \
         f"Invalid n-dim array: {array}"
     
     return SparseDF(sp.csc_matrix(array), index, columns)
