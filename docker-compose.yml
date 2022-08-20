@@ -1,0 +1,31 @@
+version: "3"
+services:
+  jupyterlab:
+    build:
+      context: .
+    user: root
+    ports:
+      - "8080:8888"
+    volumes:
+      - "./code:/home/jovyan/code"
+      - "./tools:/home/jovyan/tools"
+      - "./data:/home/jovyan/data"
+      - "./out:/home/jovyan/out"
+    environment:
+      NB_UID: 501
+      GRANT_SUDO: "yes"
+    command: start.sh jupyter lab --NotebookApp.password='sha256:a2a45f7ca6fb:c7309099cdc02959058e34589c664559364a21da58b07f263eedd16b84629a99'
+  
+  rstudio:
+    image: rocker/tidyverse:4
+    ports:
+      - "8787:8787"
+    environment:
+      - USERNAME=rstudio
+      - PASSWORD=rstudio
+      - DISABLE_AUTH=true
+    volumes:
+      - "./code:/home/rstudio/code"
+      - "./tools:/home/rstudio/tools"
+      - "./data:/home/rstudio/data"
+      - "./out:/home/rstudio/out"
