@@ -9,5 +9,5 @@ __all__ = [
     "load_npz",
     "numpy2sdf",
     "pandas2sdf",
-    "list2sdf".
+    "list2sdf"
 ]
