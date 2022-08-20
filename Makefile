@@ -40,8 +40,8 @@ lib-r: ## install required packages in R
 	docker exec  algebra_ver822-rstudio-1 Rscript ./home/rstudio/tools/install_deps.R
 
 write-lib: ## export reqired packages
-	docker exec algebra_dev-jupyterlab-1 pip list --format=freeze > ./tools/requirements_py.txt
-	docker exec  algebra_dev-rstudio-1 Rscript ./home/rstudio/tools/export_deps.R
+	docker exec algebra_ver822-jupyterlab-1 pip list --format=freeze > ./tools/requirements_py.txt
+	docker exec  algebra_ver822-rstudio-1 Rscript ./home/rstudio/tools/export_deps.R
 
 init:
 	make all-data
