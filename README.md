@@ -1,5 +1,8 @@
-# algebra_dev
-transcriptional_algebraプロジェクトの開発用。公開用はまた別に作るつもり。
+# algebra_ver822
+- transcriptional_algebraプロジェクトの開発用。公開用はまた別に作るつもり。
+- algebra_devの暖簾分け
+- factor analysisをいつ使うか、データセット同士の関係性が違う。
+- データをなるべくsparseに扱うというところもrenewalしたいポイント
 
 ## How to start
 ### Initial settings
