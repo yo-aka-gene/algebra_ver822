@@ -49,6 +49,7 @@ HeapDict==1.0.1
 idna==3.3
 imagecodecs==2022.8.8
 imageio==2.21.1
+imbalanced-learn==0.9.1
 importlib-metadata==4.11.4
 importlib-resources==5.9.0
 ipykernel==6.15.1
