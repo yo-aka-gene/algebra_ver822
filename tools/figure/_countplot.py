@@ -28,7 +28,7 @@ def countplot(
     
     if isinstance(cmap, str):
         cmap = [
-            eval("plt.cm" + cmap)(
+            eval("plt.cm." + cmap)(
                 i/len(label.unique())
             ) for i in range(len(label.unique()))
         ]
