@@ -1,5 +1,6 @@
 import json
 import pickle
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -323,3 +324,27 @@ class SparseDF():
                 columns=self.columns.to_list()
             )
             json.dump(d, f)
+
+            
+def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
+    assert isinstance(axis, int), \
+        f"axis expected int: {axis}"
+    
+    assert (axis >= 0) and (axis < 2), \
+        f"invalid value for axis: {axis}"
+    
+    data = sp.vstack([
+        v() for v in l_sdf
+    ]) if axis == 0 else sp.hstack([v() for v in l_sdf])
+
+    index = np.stack([
+        v.index for v in l_sdf
+    ]).ravel() if axis == 0 else l_sdf[0].index
+    
+    columns = np.stack([
+        v.columns for v in l_sdf
+    ]).ravel() if axis == 1 else l_sdf[0].columns
+    
+    return SparseDF(
+        data, index=index, columns=columns
+    )
