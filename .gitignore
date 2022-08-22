@@ -198,6 +198,5 @@ data/tutorial/
 # Outputs
 *.png
 
-# Rproj
-*.Rproj
+# R-related data format
 *.rds
