@@ -19,32 +19,22 @@ def fmt_rpm(
     save_dir: str,
     index_col: int = 0,
     log2: bool = False,
-    save_one_by_one: bool = False,
 ) -> None:
     head = "$\log_2(RPM+1)$" if log2 else "RPM"
     names = [head] + open(l_data[0]).readline().split(",")[1:]
     
     filename = "log2rpm" if log2 else "rpm"
-    ret = []
     
     for i, v in tqdm(enumerate(l_data), desc='RPM normalization', total=len(l_data)):
         if i == 0:
-            temp = pd.read_csv(v, index_col=index_col)
+            temp = count2rpm(pd.read_csv(v, index_col=index_col))
             temp.index.name = head
         
         else:
-            temp = pd.read_csv(v, index_col=index_col, names=names)
+            temp = count2rpm(pd.read_csv(v, index_col=index_col, names=names))
         
-        temp = np.log2(count2rpm(temp) + 1) if log2 else count2rpm(temp)
-        
-        if save_one_by_one:
-            temp.to_pickle(f"{save_dir}/{filename}_{i}.pkl")
-        
-        else:
-            ret += [temp]
-            
-    if not save_one_by_one:
-        pd.concat(ret).to_pickle(f"{save_dir}/{filename}.pkl")
+        temp = np.log2(temp + 1) if log2 else temp
+        temp.to_csv(f"{save_dir}/{filename}.{v.split('.')[-1]}", index=True)
 
             
 def fmt_rpm_sdf(
@@ -52,7 +42,7 @@ def fmt_rpm_sdf(
     save_dir: str,
     index_col: int = 0,
     log2: bool = False,
-    save_one_by_one: bool = False,
+    save_one_by_one: bool = False
 ) -> None:
     head = "$\log_2(RPM+1)$" if log2 else "RPM"
     names = [head] + open(l_data[0]).readline().split(",")[1:]
