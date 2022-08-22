@@ -20,6 +20,7 @@ libprotobuf-dev \
 protobuf-compiler \
 make \
 libgeos-dev \
+libglpk40 \
 libudunits2-dev \
 libgdal-dev \
 gdal-bin \
