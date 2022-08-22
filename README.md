@@ -12,7 +12,7 @@
 4. run `docker compose up -d`
 5. run `make init`
 
-### Run Rython codes
+### Run Python codes
 `*.ipynb` files are indexed with numbers. Please follow the numbering.<br>
 ***Notes***: some codes require that R scripts already done. Please check the description.
 1. run `docker start algebra_dev-jupyterlab-1`
