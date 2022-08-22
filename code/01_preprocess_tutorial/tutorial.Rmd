@@ -21,4 +21,85 @@ Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by press
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+## Export results so fa
+```{r}
+saveRDS(pbmc, file = "../../data/tutorial/pbmc_tutorial.rds")
+```
+- **Note**: .rds format can be used in python as well. use `pyreadr`
+
+## Find DEG
+- markers of cluster2
+```{r}
+# find all markers of cluster 2
+cluster2.markers <- FindMarkers(pbmc, ident.1 = 2, min.pct = 0.25)
+head(cluster2.markers, n = 5)
+```
+
+- markers of cluster5 compared to cluster 0-3
+```{r}
+# find all markers distinguishing cluster 5 from clusters 0 and 3
+cluster5.markers <- FindMarkers(pbmc, ident.1 = 5, ident.2 = c(0, 3), min.pct = 0.25)
+head(cluster5.markers, n = 5)
+```
+
+- iteratively compare all clusters
+```{r}
+# find markers for every cluster compared to all remaining cells, report only the positive
+# ones
+pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+pbmc.markers %>%
+    group_by(cluster) %>%
+    slice_max(n = 2, order_by = avg_log2FC)
+```
+
+- ROC can be a measure of differential expressions as explanatory variables
+```{r}
+cluster0.markers <- FindMarkers(pbmc, ident.1 = 0, logfc.threshold = 0.25, test.use = "roc", only.pos = TRUE)
+cluster0.markers
+```
+
+
+## Visualization
+```{r}
+VlnPlot(pbmc, features = c("MS4A1", "CD79A", "GAPDH", "TAPBPL", "GADD45G", "POLR1A"))
+```
+
+- violing plot of rawcounts
+```{r}
+# you can plot raw counts as well
+VlnPlot(pbmc, features = c("NKG7", "PF4", "POLR2A"), slot = "counts", log = TRUE)
+```
+
+- scatter plot
+```{r}
+FeaturePlot(pbmc, features = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "PPBP",
+    "CD8A", "UGT8", "CD44"))
+```
+
+- heatmap
+```{r}
+pbmc.markers %>%
+    group_by(cluster) %>%
+    top_n(n = 10, wt = avg_log2FC) -> top10
+DoHeatmap(pbmc, features = top10$gene) + NoLegend()
+```
+
+- After these procedure, clusters are **manually** annotated
+```{r}
+new.cluster.ids <- c("Naive CD4 T", "CD14+ Mono", "Memory CD4 T", "B", "CD8 T", "FCGR3A+ Mono",
+    "NK", "DC", "Platelet")
+names(new.cluster.ids) <- levels(pbmc)
+pbmc <- RenameIdents(pbmc, new.cluster.ids)
+DimPlot(pbmc, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
+```
+### Expot all results
+```{r}
+saveRDS(pbmc, file = "../../data/tutorial/pbmc_tutorial_all.rds")
+```
+
+
+## Cmds of RNotebook
+- *Insert Chunk*: `Opt+Cmd+I`
+- *Run*: `Shift+Cmd+Return`
+- *Preview*: `Shit+Cmd+K`
+- *Save*: `Cmd+S`
