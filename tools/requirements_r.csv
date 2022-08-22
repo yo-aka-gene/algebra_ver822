@@ -46,6 +46,7 @@ testthat (>= 3.0.0), withr (>= 2.3.0)",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no",
 "checkmate","checkmate","/usr/local/lib/R/site-library","2.1.0",NA,"R (>= 3.0.0)","backports (>= 1.1.0), utils",NA,"R6, fastmatch, data.table (>= 1.9.8), devtools, ggplot2,
 knitr, magrittr, microbenchmark, rmarkdown, testthat (>=
 3.0.4), tinytest (>= 1.1.0), tibble",NA,"BSD_3_clause + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"classInt","classInt","/usr/local/lib/R/site-library","0.4-7",NA,"R (>= 2.2)","grDevices, stats, graphics, e1071, class, KernSmooth",NA,"spData (>= 0.2.6.2), units, knitr, rmarkdown",NA,"GPL (>= 2)",NA,NA,NA,NA,"yes","4.2.0"
 "cli","cli","/usr/local/lib/R/site-library","3.3.0",NA,"R (>= 3.4)","glue (>= 1.6.0), utils",NA,"asciicast, callr, covr, digest, grDevices, htmltools,
 htmlwidgets, knitr, methods, mockery, processx, ps (>=
 1.3.4.9000), rlang, rmarkdown, rstudioapi, shiny, testthat,
@@ -68,6 +69,9 @@ testthat, tibble, utils, vctrs, withr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no",
 "crayon","crayon","/usr/local/lib/R/site-library","1.5.1",NA,NA,"grDevices, methods, utils",NA,"mockery, rstudioapi, testthat, withr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "credentials","credentials","/usr/local/lib/R/site-library","1.3.2",NA,NA,"openssl (>= 1.3), sys (>= 2.1), curl, jsonlite, askpass",NA,"testthat, knitr, rmarkdown",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "crosstalk","crosstalk","/usr/local/lib/R/site-library","1.2.0",NA,NA,"htmltools (>= 0.3.6), jsonlite, lazyeval, R6",NA,"shiny, ggplot2, testthat (>= 2.1.0), sass, bslib",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"crul","crul","/usr/local/lib/R/site-library","1.2.0",NA,NA,"curl (>= 3.3), R6 (>= 2.2.0), urltools (>= 1.6.0), httpcode
+(>= 0.2.0), jsonlite, mime",NA,"testthat, roxygen2 (>= 7.1.1), fauxpas (>= 0.1.0), webmockr
+(>= 0.1.0), knitr, rmarkdown",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "curl","curl","/usr/local/lib/R/site-library","4.3.2",NA,"R (>= 3.0.0)",NA,NA,"spelling, testthat (>= 1.0.0), knitr, jsonlite, rmarkdown,
 magrittr, httpuv (>= 1.4.4), webutils",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "data.table","data.table","/usr/local/lib/R/site-library","1.14.2",NA,"R (>= 3.1.0)","methods",NA,"bit64 (>= 4.0.0), bit (>= 4.0.4), curl, R.utils, xts,
@@ -115,6 +119,8 @@ glue, lifecycle, rlang, tibble, tidyselect, vctrs",NA,"bench, covr, knitr, rmark
 1.1.0)",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "duckdb","duckdb","/usr/local/lib/R/site-library","0.4.0",NA,"DBI, R (>= 3.6.0)","methods, utils",NA,"arrow, callr, DBItest, dplyr, dbplyr, nycflights13, testthat,
 tibble, vctrs, withr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"e1071","e1071","/usr/local/lib/R/site-library","1.7-11",NA,NA,"graphics, grDevices, class, stats, methods, utils, proxy",NA,"cluster, mlbench, nnet, randomForest, rpart, SparseM, xtable,
+Matrix, MASS, slam",NA,"GPL-2 | GPL-3",NA,NA,NA,NA,"yes","4.2.0"
 "ellipsis","ellipsis","/usr/local/lib/R/site-library","0.3.2",NA,"R (>= 3.2)","rlang (>= 0.3.0)",NA,"covr, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "evaluate","evaluate","/usr/local/lib/R/site-library","0.15",NA,"R (>= 3.0.2)","methods",NA,"covr, ggplot2, lattice, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "fansi","fansi","/usr/local/lib/R/site-library","1.0.3",NA,"R (>= 3.1.0)","grDevices, utils",NA,"unitizer, knitr, rmarkdown",NA,"GPL-2 | GPL-3",NA,NA,NA,NA,"yes","4.2.0"
@@ -138,6 +144,15 @@ parallelly (>= 1.31.1), tools, utils",NA,"methods, RhpcBLASctl, R.rsp, markdown"
 stats, utils, withr",NA,"aws.ec2metadata, aws.signature, covr, httpuv, knitr, mockr,
 rmarkdown, sodium, spelling, testthat (>= 3.0.0)",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "generics","generics","/usr/local/lib/R/site-library","0.1.3",NA,"R (>= 3.2)","methods",NA,"covr, pkgload, testthat (>= 3.0.0), tibble, withr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"geojson","geojson","/usr/local/lib/R/site-library","0.3.4",NA,NA,"methods, sp, jsonlite (>= 1.6), protolite (>= 1.8), jqr (>=
+1.1.0), magrittr, lazyeval",NA,"geojsonlint (>= 0.2.0), tibble, testthat, knitr, rmarkdown,
+sf, stringi",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"geojsonio","geojsonio","/usr/local/lib/R/site-library","0.9.4",NA,"R (>= 2.10)","methods, sp, sf (>= 0.6), geojsonsf, rgeos, crul, maptools,
+jsonlite (>= 0.9.21), magrittr, readr (>= 0.2.2), V8, geojson
+(>= 0.2.0), jqr",NA,"gistr, testthat, leaflet, maps, DBI, RPostgres","RColorBrewer","MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"geojsonsf","geojsonsf","/usr/local/lib/R/site-library","2.0.3",NA,"R (>= 3.3.0)","Rcpp","geometries, jsonify (>= 1.1.1), rapidjsonr (>= 1.2.0), Rcpp,
+sfheaders (>= 0.2.2)","covr, jsonify, knitr, rmarkdown, tinytest",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"geometries","geometries","/usr/local/lib/R/site-library","0.2.0",NA,NA,"Rcpp","Rcpp","covr, knitr, rmarkdown, tinytest",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "gert","gert","/usr/local/lib/R/site-library","1.6.0",NA,NA,"askpass, credentials (>= 1.2.1), openssl (>= 1.4.1),
 rstudioapi (>= 0.11), sys, zip (>= 2.1.0)",NA,"spelling, knitr, rmarkdown, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "ggdendro","ggdendro","/usr/local/lib/R/site-library","0.1.23",NA,NA,"MASS, ggplot2(>= 0.9.2)",NA,"rpart (>= 4.0-0), tree, testthat, knitr, cluster, scales,
@@ -193,6 +208,7 @@ lubridate, tibble, purrr, tidyselect, glue, rlang, tidyr (>=
 "htmltools","htmltools","/usr/local/lib/R/site-library","0.5.3",NA,"R (>= 2.14.1)","utils, digest, grDevices, base64enc, rlang (>= 0.4.10),
 fastmap (>= 1.1.0)",NA,"markdown, testthat, withr, Cairo, ragg, shiny","knitr","GPL (>= 2)",NA,NA,NA,NA,"yes","4.2.0"
 "htmlwidgets","htmlwidgets","/usr/local/lib/R/site-library","1.5.4",NA,NA,"grDevices, htmltools (>= 0.3), jsonlite (>= 0.9.16), yaml",NA,"knitr (>= 1.8), rmarkdown, testthat","shiny (>= 1.1)","MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"httpcode","httpcode","/usr/local/lib/R/site-library","0.3.0",NA,NA,NA,NA,"testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "httpuv","httpuv","/usr/local/lib/R/site-library","1.6.5",NA,"R (>= 2.15.1)","Rcpp (>= 1.0.7), utils, R6, promises, later (>= 0.8.0)","Rcpp, later","testthat, callr, curl, websocket",NA,"GPL (>= 2) | file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "httr","httr","/usr/local/lib/R/site-library","1.4.3",NA,"R (>= 3.2)","curl (>= 3.0.0), jsonlite, mime, openssl (>= 0.8), R6",NA,"covr, httpuv, jpeg, knitr, png, readr, rmarkdown, testthat
 (>= 0.8.0), xml2",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
@@ -206,6 +222,7 @@ withr, digest",NA,"GPL (>= 2)",NA,NA,NA,NA,"yes","4.2.0"
 "isoband","isoband","/usr/local/lib/R/site-library","0.2.5",NA,NA,"grid, utils",NA,"covr, ggplot2, knitr, magick, microbenchmark, rmarkdown, sf,
 testthat, xml2",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "jquerylib","jquerylib","/usr/local/lib/R/site-library","0.1.4",NA,NA,"htmltools",NA,"testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"jsonify","jsonify","/usr/local/lib/R/site-library","1.2.1",NA,"R (>= 3.3.0)","Rcpp (>= 0.12.18)","rapidjsonr (>= 1.2.0), Rcpp","covr, testthat, knitr, rmarkdown",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "jsonlite","jsonlite","/usr/local/lib/R/site-library","1.8.0",NA,"methods",NA,NA,"httr, curl, vctrs, testthat, knitr, rmarkdown, R.rsp, sf",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "knitr","knitr","/usr/local/lib/R/site-library","1.39",NA,"R (>= 3.3.0)","evaluate (>= 0.15), highr, methods, stringr (>= 0.6), yaml (>=
 2.1.19), xfun (>= 0.29), tools",NA,"markdown, formatR, testit, digest, rgl (>= 0.95.1201),
@@ -229,12 +246,18 @@ remotes, rmarkdown, spelling, testthat, tibble",NA,"GPL-3 | file LICENSE",NA,NA,
 "lmtest","lmtest","/usr/local/lib/R/site-library","0.9-40",NA,"R (>= 3.0.0), stats, zoo","graphics",NA,"car, strucchange, sandwich, dynlm, stats4, survival, AER",NA,"GPL-2 | GPL-3",NA,NA,NA,NA,"yes","4.2.0"
 "lubridate","lubridate","/usr/local/lib/R/site-library","1.8.0",NA,"methods, R (>= 3.2)","generics","cpp11 (>= 0.2.7)","covr, knitr, testthat (>= 2.1.0), vctrs (>= 0.3.0), rmarkdown","chron, timeDate, tis, zoo","GPL (>= 2)",NA,NA,NA,NA,"yes","4.2.0"
 "magrittr","magrittr","/usr/local/lib/R/site-library","2.0.3",NA,"R (>= 3.4.0)",NA,NA,"covr, knitr, rlang, rmarkdown, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"maptools","maptools","/usr/local/lib/R/site-library","1.1-4",NA,"R (>= 2.10), sp (>= 1.0-11)","foreign (>= 0.8), methods, grid, lattice, stats, utils,
+grDevices",NA,"rgeos (>= 0.1-8), spatstat.geom (>= 1.65-0), PBSmapping,
+maps, RColorBrewer, raster, polyclip, plotrix, spatstat.linnet
+(>= 1.65-3), spatstat.utils (>= 1.19.0), spatstat (>= 2.0-0)","gpclib","GPL (>= 2)",NA,NA,NA,NA,"yes","4.2.0"
+"markdown","markdown","/usr/local/lib/R/site-library","1.1",NA,"R (>= 2.11.1)","utils, xfun, mime (>= 0.3)",NA,"knitr, RCurl",NA,"GPL-2",NA,NA,NA,NA,"yes","4.2.0"
 "matrixStats","matrixStats","/usr/local/lib/R/site-library","0.62.0",NA,"R (>= 2.12.0)",NA,NA,"base64enc, ggplot2, knitr, markdown, microbenchmark,
 R.devices, R.rsp",NA,"Artistic-2.0",NA,NA,NA,NA,"yes","4.2.0"
 "memoise","memoise","/usr/local/lib/R/site-library","2.0.1",NA,NA,"rlang (>= 0.4.10), cachem",NA,"digest, aws.s3, covr, googleAuthR, googleCloudStorageR, httr,
 testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "mime","mime","/usr/local/lib/R/site-library","0.12",NA,NA,"tools",NA,NA,NA,"GPL",NA,NA,NA,NA,"yes","4.2.0"
 "miniUI","miniUI","/usr/local/lib/R/site-library","0.1.1.1",NA,NA,"shiny (>= 0.13), htmltools (>= 0.3), utils",NA,NA,NA,"GPL-3",NA,NA,NA,NA,"no","4.2.0"
+"mnormt","mnormt","/usr/local/lib/R/site-library","2.1.0",NA,"R (>= 2.2.0)",NA,NA,NA,NA,"GPL-2 | GPL-3",NA,NA,NA,NA,"yes","4.2.0"
 "modelr","modelr","/usr/local/lib/R/site-library","0.1.8",NA,"R (>= 3.2)","broom, magrittr, purrr (>= 0.2.2), rlang (>= 0.2.0), tibble,
 tidyr (>= 0.8.0), tidyselect, vctrs",NA,"compiler, covr, ggplot2, testthat",NA,"GPL-3",NA,NA,NA,NA,"no","4.2.0"
 "munsell","munsell","/usr/local/lib/R/site-library","0.5.0",NA,NA,"colorspace, methods",NA,"ggplot2, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
@@ -292,8 +315,12 @@ foreach, plyr, doFuture, future, future.apply, furrr,
 rstudioapi, shiny, commonmark, base64enc, tools",NA,"GPL (>= 3)",NA,NA,NA,NA,"no","4.2.0"
 "promises","promises","/usr/local/lib/R/site-library","1.2.0.1",NA,NA,"R6, Rcpp, later, rlang, stats, magrittr","later, Rcpp","testthat, future (>= 1.21.0), fastmap (>= 1.1.0), purrr,
 knitr, rmarkdown, vembedr, spelling",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"protolite","protolite","/usr/local/lib/R/site-library","2.1.1",NA,NA,"Rcpp (>= 0.12.12), jsonlite","Rcpp","spelling, curl, testthat, RProtoBuf, sf",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"proxy","proxy","/usr/local/lib/R/site-library","0.4-27",NA,"R (>= 3.4.0)","stats, utils",NA,"cba",NA,"GPL-2",NA,NA,NA,NA,"yes","4.2.0"
 "ps","ps","/usr/local/lib/R/site-library","1.7.1",NA,"R (>= 3.4)","utils",NA,"callr, covr, curl, pillar, pingr, processx (>= 3.1.0), R6,
 rlang, testthat (>= 3.0.0),",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"psych","psych","/usr/local/lib/R/site-library","2.2.5",NA,NA,"mnormt,parallel,stats,graphics,grDevices,methods,lattice,nlme",NA,"psychTools, GPArotation, lavaan, lme4, Rcsdp, graph, knitr,
+Rgraphviz",NA,"GPL (>= 2)",NA,NA,NA,NA,"no","4.2.0"
 "PTXQC","PTXQC","/usr/local/lib/R/site-library","1.0.13",NA,"R (>= 3.3.0)","data.table, ggplot2 (>= 2.2), ggdendro, grid, grDevices,
 gtable, htmlTable, jsonlite, knitr (>= 1.10), magrittr,
 methods, ontologyIndex, plyr, R6, R6P, RColorBrewer, reshape2,
@@ -304,6 +331,7 @@ tibble, tidyselect",NA,"GPL-3 | file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "R6P","R6P","/usr/local/lib/R/site-library","0.2.2",NA,"R (>= 3.5)","collections, dplyr, purrr, stringr, R6, tibble, tidyr",NA,"testthat, DBI, RSQLite, ggplot2",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "ragg","ragg","/usr/local/lib/R/site-library","1.2.2",NA,NA,"systemfonts (>= 1.0.3), textshaping (>= 0.3.0)","systemfonts, textshaping","covr, testthat, grid, graphics",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "RANN","RANN","/usr/local/lib/R/site-library","2.6.1",NA,NA,NA,NA,"testthat",NA,"GPL (>= 3)",NA,NA,NA,NA,"yes","4.2.0"
+"rapidjsonr","rapidjsonr","/usr/local/lib/R/site-library","1.2.0",NA,NA,NA,NA,NA,NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "rappdirs","rappdirs","/usr/local/lib/R/site-library","0.3.3",NA,"R (>= 3.2)",NA,NA,"roxygen2, testthat (>= 3.0.0), covr, withr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "rcmdcheck","rcmdcheck","/usr/local/lib/R/site-library","1.4.0",NA,NA,"callr (>= 3.1.1.9000), cli (>= 3.0.0), curl, desc (>= 1.2.0),
 digest, pkgbuild, prettyunits, R6, rprojroot, sessioninfo (>=
@@ -362,6 +390,7 @@ rvest, testthat, xml2",NA,"LGPL (>= 2.1)",NA,NA,NA,NA,"yes","4.2.0"
 "rvest","rvest","/usr/local/lib/R/site-library","1.0.2",NA,"R (>= 3.2)","httr (>= 0.5), lifecycle (>= 1.0.0), magrittr, rlang (>=
 0.4.10), selectr, tibble, xml2 (>= 1.3)",NA,"covr, glue, knitr, readr, rmarkdown, repurrrsive, spelling,
 stringi (>= 0.3.1), testthat (>= 3.0.2), webfakes",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"s2","s2","/usr/local/lib/R/site-library","1.1.0",NA,"R (>= 3.0.0)","Rcpp, wk (>= 0.6.0)","Rcpp, wk","testthat (>= 3.0.0), vctrs",NA,"Apache License (== 2.0)",NA,NA,NA,NA,"yes","4.2.0"
 "sass","sass","/usr/local/lib/R/site-library","0.4.2",NA,NA,"fs, rlang (>= 0.4.10), htmltools (>= 0.5.1), R6, rappdirs",NA,"testthat, knitr, rmarkdown, withr, shiny, curl",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "scales","scales","/usr/local/lib/R/site-library","1.2.0",NA,"R (>= 3.2)","farver (>= 2.0.3), labeling, lifecycle, munsell (>= 0.5), R6,
 RColorBrewer, rlang (>= 1.0.0), viridisLite",NA,"bit64, covr, dichromat, ggplot2, hms (>= 0.5.0), stringi,
@@ -389,6 +418,17 @@ ggrastr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "SeuratObject","SeuratObject","/usr/local/lib/R/site-library","4.1.0",NA,"R (>= 4.0.0)","future, future.apply, grDevices, grid, Matrix (>= 1.3.3),
 methods, progressr, Rcpp (>= 1.0.5), sp, rgeos, rlang (>=
 0.4.7), stats, tools, utils","Rcpp, RcppEigen","ggplot2, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"sf","sf","/usr/local/lib/R/site-library","1.0-8",NA,"methods, R (>= 3.3.0)","classInt (>= 0.4-1), DBI (>= 0.8), graphics, grDevices, grid,
+magrittr, Rcpp (>= 0.12.18), s2 (>= 1.0.7), stats, tools, units
+(>= 0.7-0), utils","Rcpp","blob, covr, dplyr (>= 0.8-3), ggplot2, knitr, lwgeom (>=
+0.2-1), maps, mapview, Matrix, microbenchmark, odbc, pbapply,
+pillar, pool, raster, rlang, rmarkdown, RPostgres (>= 1.1.0),
+RPostgreSQL, RSQLite, sp (>= 1.2-4), spatstat (>= 2.0-1),
+spatstat.geom, spatstat.random, spatstat.linnet,
+spatstat.utils, stars (>= 0.2-0), terra, testthat, tibble (>=
+1.4.1), tidyr (>= 1.2.0), tidyselect (>= 1.0.0), tmap (>= 2.0),
+vctrs, wk",NA,"GPL-2 | MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"sfheaders","sfheaders","/usr/local/lib/R/site-library","0.4.0",NA,NA,"geometries (>= 0.2.0), Rcpp","geometries, Rcpp","covr, knitr, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "shiny","shiny","/usr/local/lib/R/site-library","1.7.2",NA,"R (>= 3.0.2), methods","utils, grDevices, httpuv (>= 1.5.2), mime (>= 0.3), jsonlite
 (>= 0.9.16), xtable, fontawesome (>= 0.2.1), htmltools (>=
 0.5.2), R6 (>= 2.0), sourcetools, later (>= 1.0.0), promises
@@ -457,10 +497,15 @@ purrr (>= 0.3.4), readr (>= 2.1.1), readxl (>= 1.3.1), reprex
 1.0.2), stringr (>= 1.4.0), tibble (>= 3.1.6), tidyr (>=
 1.1.4), xml2 (>= 1.3.3)",NA,"covr, feather, glue, knitr, rmarkdown, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "tinytex","tinytex","/usr/local/lib/R/site-library","0.40",NA,NA,"xfun (>= 0.29)",NA,"testit, rstudioapi",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"triebeard","triebeard","/usr/local/lib/R/site-library","0.3.0",NA,NA,"Rcpp","Rcpp","knitr, rmarkdown, testthat",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "tzdb","tzdb","/usr/local/lib/R/site-library","0.3.0",NA,"R (>= 3.4.0)",NA,"cpp11 (>= 0.4.2)","covr, testthat (>= 3.0.0)",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
+"units","units","/usr/local/lib/R/site-library","0.8-0",NA,"R (>= 3.0.2)","Rcpp","Rcpp (>= 0.12.10)","NISTunits, measurements, xml2, magrittr, pillar (>= 1.3.0),
+dplyr (>= 1.0.0), vctrs (>= 0.3.1), ggplot2 (> 3.2.1), testthat
+(>= 3.0.0), vdiffr, knitr, rmarkdown",NA,"GPL-2",NA,NA,NA,NA,"yes","4.2.0"
 "UpSetR","UpSetR","/usr/local/lib/R/site-library","1.4.0",NA,"R (>= 3.0)","ggplot2, gridExtra, plyr, utils, stats, methods, grDevices,
 scales",NA,"knitr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
 "urlchecker","urlchecker","/usr/local/lib/R/site-library","1.0.1",NA,"R (>= 3.3)","cli, curl, tools, xml2",NA,"covr",NA,"GPL-3",NA,NA,NA,NA,"no","4.2.0"
+"urltools","urltools","/usr/local/lib/R/site-library","1.7.3",NA,"R (>= 2.10)","Rcpp, methods, triebeard","Rcpp","testthat, knitr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "usethis","usethis","/usr/local/lib/R/site-library","2.1.6",NA,"R (>= 3.4)","cli (>= 3.0.1), clipr (>= 0.3.0), crayon, curl (>= 2.7), desc
 (>= 1.4.0), fs (>= 1.3.0), gert (>= 1.4.1), gh (>= 1.2.1), glue
 (>= 1.3.0), jsonlite, lifecycle (>= 1.0.0), purrr, rappdirs,
@@ -472,6 +517,7 @@ whisker, withr (>= 2.3.0), yaml",NA,"covr, knitr, magick, mockr, pkgload, rmarkd
 withr",NA,"Apache License (== 2.0) | file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "uuid","uuid","/usr/local/lib/R/site-library","1.1-0",NA,"R (>= 2.9.0)",NA,NA,NA,NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "uwot","uwot","/usr/local/lib/R/site-library","0.1.13",NA,"Matrix","Rcpp, methods, FNN, RcppAnnoy (>= 0.0.17), irlba","Rcpp, RcppProgress, RcppAnnoy, dqrng","testthat, covr, bigstatsr, RSpectra",NA,"GPL (>= 3)",NA,NA,NA,NA,"yes","4.2.0"
+"V8","V8","/usr/local/lib/R/site-library","4.2.1",NA,NA,"Rcpp (>= 0.12.12), jsonlite (>= 1.0), curl (>= 1.0), utils","Rcpp","testthat, knitr, rmarkdown",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "vctrs","vctrs","/usr/local/lib/R/site-library","0.4.1",NA,"R (>= 3.3)","cli (>= 3.2.0), glue, rlang (>= 1.0.2)",NA,"bit64, covr, crayon, dplyr (>= 0.8.5), generics, knitr,
 pillar (>= 1.4.4), pkgdown (>= 2.0.1), rmarkdown, testthat (>=
 3.0.0), tibble (>= 3.1.3), withr, xml2, waldo (>= 0.2.0),
@@ -488,6 +534,7 @@ utils, waldo, xml2",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "whisker","whisker","/usr/local/lib/R/site-library","0.4",NA,NA,NA,NA,"markdown",NA,"GPL-3",NA,NA,NA,NA,"no","4.2.0"
 "withr","withr","/usr/local/lib/R/site-library","2.5.0",NA,"R (>= 3.2.0)","graphics, grDevices, stats",NA,"callr, covr, DBI, knitr, lattice, methods, rlang, rmarkdown
 (>= 2.12), RSQLite, testthat (>= 3.0.0)",NA,"MIT + file LICENSE",NA,NA,NA,NA,"no","4.2.0"
+"wk","wk","/usr/local/lib/R/site-library","0.6.0",NA,NA,NA,NA,"testthat (>= 3.0.0), vctrs (>= 0.3.0), sf, tibble, readr",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
 "xfun","xfun","/usr/local/lib/R/site-library","0.31",NA,NA,"stats, tools",NA,"testit, parallel, codetools, rstudioapi, tinytex (>= 0.30),
 mime, markdown, knitr, htmltools, remotes, pak, rhub, renv,
 curl, jsonlite, rmarkdown",NA,"MIT + file LICENSE",NA,NA,NA,NA,"yes","4.2.0"
