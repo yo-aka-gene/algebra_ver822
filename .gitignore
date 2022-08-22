@@ -188,9 +188,15 @@ data/*/*.csv
 data/*/*.csv*
 data/*/*.pkl
 data/*/*.gz
+data/*/*.tsv
+data/*/*.mtx
+data/tutorial/
 
 # VS code
 .vscode/
 
 # Outputs
 *.png
+
+# R-related data format
+*.rds
