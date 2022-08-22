@@ -188,8 +188,8 @@ data/*/*.csv
 data/*/*.csv*
 data/*/*.pkl
 data/*/*.gz
-data/*/*.tsv
-data/*/*.mtx
+*.tsv
+*.mtx
 data/tutorial/
 
 # VS code
