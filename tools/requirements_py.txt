@@ -69,6 +69,7 @@ json5==0.9.5
 jsonschema==4.9.1
 jupyter-client==7.3.4
 jupyter_core==4.11.1
+jupyter-resource-usage==0.6.1
 jupyter-server==1.18.1
 jupyter-telemetry==0.1.0
 jupyterhub==2.3.1
