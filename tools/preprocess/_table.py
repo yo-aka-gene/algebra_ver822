@@ -2,6 +2,7 @@ import os
 from typing import Callable, List, Union
 import numpy as np
 import pandas as pd
+import scipy.sparse as sp
 from tqdm.notebook import tqdm
 
 def submatrix(
@@ -57,6 +58,8 @@ def fmt_table(
     index_col: int = 0,
     log2: bool = False,
     axis: int = 0,
+    export: bool = False,
+    export_fmt: str = "pkl",
     save_as_csv: bool = False,
 ) -> pd.core.frame.DataFrame:
     l_path = submatrix(
@@ -79,4 +82,10 @@ def fmt_table(
     if save_as_csv:
         df.to_csv(f"{save_dir}/{filenames}.csv", index=True)
     
+    elif export and export_fmt == "pkl":
+        df.to_pickle(f"{save_dir}/{filenames}.pkl", index=True)
+    
+    elif export and export_fmt == "npz":
+        sp.save_npz(f"{save_dir}/{filenames}.npz", sp.csc_matrix(df.values))
+
     return df

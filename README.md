@@ -27,6 +27,12 @@
 3. run codes in rstudio environment
 4. run `make lib-r` or `make lib` to install packages in dependencies (preinstalled with `make init` command)
 ---
+## Preference of Docker in local environment
+- Resource
+    - CPUs: 8
+    - Memory: 24.00 GB
+    - Swap: 2 GB
+---
 ## Copyright of the dataset
 1. Allen Institute for Brain Science
     - human primary mortor cortex: [https://portal.brain.map.org/atlases-and-data/rnaseq/human-m1-10x](https://portal.brain.map.org/atlases-and-data/rnaseq/human-m1-10x)
