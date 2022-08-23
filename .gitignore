@@ -197,6 +197,7 @@ data/tutorial/
 
 # Outputs
 *.png
+*.html
 
 # R-related data format
 *.rds
