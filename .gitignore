@@ -196,7 +196,7 @@ data/tutorial/
 .vscode/
 
 # Outputs
-*.png
+out/*/*/*.png
 *.html
 
 # R-related data format
