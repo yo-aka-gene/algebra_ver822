@@ -1,8 +1,10 @@
 ---
 title: "Tutorial Anasysis"
+author: Yuji Okano
+date: August 24, 2022
 output:
-  html_document:
-    df_print: paged
+  md_document:
+    variant: markdown_github
 ---
 
 # 01_preprocess
