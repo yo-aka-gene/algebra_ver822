@@ -23,12 +23,18 @@ gse : ## download gse165388 data
 	curl -o ./data/GSE165388_RAW.tar 'https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE165388&format=file'
 	tar -xvf ./data/GSE165388_RAW.tar -C ./data/gse165388
 	rm ./data/GSE165388_RAW.tar
+	chmod 777 ./data/gse165388/*.gz
+	for i in $(ls ./data/gse165388/*_barcodes.tsv.gz); do mkdir ./data/gse165388/$(basename $i _barcodes.tsv.gz); mv $i ./data/gse165388/$(basename $i _barcodes.tsv.gz)/barcodes.tsv.gz; done
+	for i in $(ls ./data/gse165388/*_features.tsv.gz); do mv $i ./data/gse165388/$(basename $i _features.tsv.gz)/features.tsv.gz; done
+	for i in $(ls ./data/gse165388/*_matrix.mtx.gz); do mv $i ./data/gse165388/$(basename $i _matrix.mtx.gz)/matrix.mtx.gz; done
+
 
 m1_10x: ## download m1_10x data and split them
 	mkdir ./data/m1_10x
 	curl -o ./data/m1_10x/matrix.csv https://idk-etl-prod-download-bucket.s3.amazonaws.com/aibs_human_m1_10x/matrix.csv
 	split ./data/m1_10x/matrix.csv -l 2000
 	curl -o ./data/m1_10x_meta/metadata.csv https://idk-etl-prod-download-bucket.s3.amazonaws.com/aibs_human_m1_10x/metadata.csv
+	curl -o ./data/m1_10x_info/readme.txt https://brainmapportal-live-4cc80a57cd6e400d854-f7fdcae.divio-media.net/filer_public/70/32/70326830-e306-4743-a02c-a8da5bf9eb56/readme-m1-10.txt
 
 
 lib: write-lib lib-py lib-r write-lib
