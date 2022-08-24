@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc all-data gse m1_10x lib lib-py lib-r write-lib init
+.PHONY: clean clean-build clean-pyc all-data gse m1_10x lib lib-py lib-r write-lib init fmt_10x
 .DEFAULT_GOAL := help
 
 clean: clean-build clean-pyc
@@ -23,10 +23,8 @@ gse : ## download gse165388 data
 	curl -o ./data/GSE165388_RAW.tar 'https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE165388&format=file'
 	tar -xvf ./data/GSE165388_RAW.tar -C ./data/gse165388
 	rm ./data/GSE165388_RAW.tar
-	chmod 777 ./data/gse165388/*.gz
-	for i in $(ls ./data/gse165388/*_barcodes.tsv.gz); do mkdir ./data/gse165388/$(basename $i _barcodes.tsv.gz); mv $i ./data/gse165388/$(basename $i _barcodes.tsv.gz)/barcodes.tsv.gz; done
-	for i in $(ls ./data/gse165388/*_features.tsv.gz); do mv $i ./data/gse165388/$(basename $i _features.tsv.gz)/features.tsv.gz; done
-	for i in $(ls ./data/gse165388/*_matrix.mtx.gz); do mv $i ./data/gse165388/$(basename $i _matrix.mtx.gz)/matrix.mtx.gz; done
+	chmod 741 fmt_10x.sh
+	./fmt_10x.sh ./data/gse165388
 
 
 m1_10x: ## download m1_10x data and split them
@@ -53,3 +51,4 @@ init:
 	make all-data
 	docker exec algebra_dev-jupyterlab-1 touch ./tools/requirements.txt
 	make lib
+
