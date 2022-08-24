@@ -187,7 +187,7 @@ rsconnect/
 data/*/*.csv
 data/*/*.csv*
 data/*/*.pkl
-data/*/*.gz
+*.gz
 *.tsv
 *.mtx
 data/tutorial/
