@@ -1,278 +1,263 @@
 ---
 title: "GSE165388"
+author: Yuji Okano
+date: August 24, 2022
 output:
-  html_document:
-    df_print: paged
+  md_document:
+    variant: markdown_github
 ---
 
 # 01_preprocess
 
 ## Objectives
-
 1. preprocessing GSE165388 data
 
 ### load data and make seurat object
 
-```{r}
+```{r set-up}
 library(dplyr)
 library(Seurat)
 library(patchwork)
 
-raw.data <- Read10X(data.dir = "../../data/gse165388/")
-data <- CreateSeuratObject(counts = raw.data, project = "GSE165388", min.cells = 3, min.features = 200)
+raw.data <- Read10X(data.dir = "../../data/gse165388/GSM5032680_GW9/")
+data <- CreateSeuratObject(counts = raw.data, project = "GSE165388_GW9", min.cells = 3, min.features = 200)
 data
 ```
 ### check matrix
-```{r}
-# Lets examine a few genes in the first thirty cells
-pbmc.data[c("CD3D", "TCL1A", "MS4A1", "GAPDH"), 1:30]
+```{r, echo=FALSE}
+raw.data[c("GAPDH", "NES", "DCX", "TUBB3", "GFAP"), 1:30]
 ```
 
 ### check difference between dense matrix and sparse matix
 - dense matrix
-```{r}
-dense.size <- object.size(as.matrix(pbmc.data))
+```{r, echo=FALSE}
+dense.size <- object.size(as.matrix(raw.data))
 dense.size
 ```
 
--sparse matrix
+## Export raw matrix
 ```{r}
-sparse.size <- object.size(pbmc.data)
-sparse.size
+if (! dir.exists("../../data/gse165388_count")) {
+  dir.create("../../data/gse165388_count")
+}
+
+saveRDS(GetAssayData(data), file = "../../data/gse165388_count/gw9_raw.rds")
 ```
 
-- comparison
-```{r}
-dense.size/sparse.size
-```
-
+---
 ## QC
-- high expression of mitocondrial genes -> the cell is dead
 ```{r}
-# The [[ operator can add columns to object metadata. This is a great place to stash QC stats
-pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
-```
-
-- **Note**: making new row with [[""]]
-
-### visualization
-```{r}
-# Visualize QC metrics as a violin plot
-VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
-```
-
-```{r}
-# FeatureScatter is typically used to visualize feature-feature relationships, but can be used
-# for anything calculated by the object, i.e. columns in object metadata, PC scores etc.
-plot1 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "percent.mt")
-plot2 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
-plot1 + plot2
-```
-
-```{r}
-pbmc <- subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
-```
-
-## Normalization
-```{r}
-pbmc <- NormalizeData(pbmc, normalization.method = "LogNormalize", scale.factor = 10000)
-```
-
-- the same result will be obtained with the following code as well
-```{r}
-pbmc <- NormalizeData(pbmc)
+data[["percent.mt"]] <- PercentageFeatureSet(data, pattern = "^MT-")
 ```
 
 ### visualization
 ```{r}
-pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
-# Identify the 10 most highly variable genes
-top10 <- head(VariableFeatures(pbmc), 10)
-# plot variable features with and without labels
-plot1 <- VariableFeaturePlot(pbmc)
-plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
-plot1 + plot2
+VlnPlot(data, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+```
+
+```{r, fig.dim=c(20, 6), out.width = "400px"}
+plot1 <- FeatureScatter(data, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot2 <- FeatureScatter(data, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot1
 ```
 
 ```{r}
 plot2
 ```
 
+
+```{r}
+data <- subset(data, subset = nFeature_RNA > 200 & nFeature_RNA < 5000 & percent.mt < 20)
+```
+
+## Normalization
+```{r}
+data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 10000)
+```
+
+```{r}
+dim(GetAssayData(data))
+```
+
+
+```{r}
+saveRDS(GetAssayData(data), file = "../../data/gse165388_count/gw9_log.rds")
+```
+
+
+### visualization
+```{r, fig.dim=c(20, 6), out.width = "400px"}
+data <- FindVariableFeatures(data, selection.method = "vst", nfeatures = 2000)
+# Identify the 10 most highly variable genes
+top10 <- head(VariableFeatures(data), 10)
+# plot variable features with and without labels
+plot1 <- VariableFeaturePlot(data)
+plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
+plot2
+```
+
 ## Data scaling (for PCA)
 ```{r}
-all.genes <- rownames(pbmc)
-pbmc <- ScaleData(pbmc, features = all.genes)
+all.genes <- rownames(data)
+data <- ScaleData(data, features = all.genes)
 ```
 
 ## PCA
-```{r}
-pbmc <- RunPCA(pbmc, features = VariableFeatures(object = pbmc))
-# Examine and visualize PCA results a few different ways
-print(pbmc[["pca"]], dims = 1:5, nfeatures = 5)
+```{r, echo=FALSE}
+data <- RunPCA(data, features = VariableFeatures(object = data))
 ```
 
 ### visualizaition
 - loadings
 ```{r}
-VizDimLoadings(pbmc, dims = 1:2, reduction = "pca")
+VizDimLoadings(data, dims = 1:2, reduction = "pca")
 ```
 
 - scatter plot
 ```{r}
-DimPlot(pbmc, reduction = "pca")
+DimPlot(data, reduction = "pca")
 ```
 
 - heat map
 ```{r}
-DimHeatmap(pbmc, dims = 1, cells = 500, balanced = TRUE)
+DimHeatmap(data, dims = 1, cells = 500, balanced = TRUE)
 ```
 
 ```{r}
-DimHeatmap(pbmc, dims = 1:15, cells = 500, balanced = TRUE)
+DimHeatmap(data, dims = 1:15, cells = 500, balanced = TRUE)
 ```
 
 ### determine n_dim
 - Jack Straw plot
 ```{r}
-# NOTE: This process can take a long time for big datasets, comment out for expediency. More
-# approximate techniques such as those implemented in ElbowPlot() can be used to reduce
-# computation time
-pbmc <- JackStraw(pbmc, num.replicate = 100)
-pbmc <- ScoreJackStraw(pbmc, dims = 1:20)
-JackStrawPlot(pbmc, dims = 1:15)
+data <- JackStraw(data, num.replicate = 100)
+data <- ScoreJackStraw(data, dims = 1:20)
+```
+
+```{r}
+JackStrawPlot(data, dims = 1:20)
 ```
 
 - Elbow plot
 ```{r}
-ElbowPlot(pbmc)
+ElbowPlot(data)
 ```
 
 - **Note**: when the data is small enough, `fa.parallel` from `psych` is useful
 
-## Clustering
 ```{r}
-pbmc <- FindNeighbors(pbmc, dims = 1:10)
-pbmc <- FindClusters(pbmc, resolution = 0.5)
+dim(data)
 ```
 
-- checking ids
+
+## Clustering
 ```{r}
-# Look at cluster IDs of the first 5 cells
-head(Idents(pbmc), 5)
+data <- FindNeighbors(data, dims = 1:50)
+data <- FindClusters(data, resolution = 0.5)
 ```
 
 ## Embedding into Manifolds
 ### UMAP
 ```{r}
-# If you haven't installed UMAP, you can do so via reticulate::py_install(packages =
-# 'umap-learn')
-pbmc <- RunUMAP(pbmc, dims = 1:10)
-# note that you can set `label = TRUE` or use the LabelClusters function to help label
-# individual clusters
-DimPlot(pbmc, reduction = "umap")
+data <- RunUMAP(data, dims = 1:50)
+DimPlot(data, reduction = "umap")
 ```
 
-### sSNE
+### tSNE
 ```{r}
-# If you haven't installed UMAP, you can do so via reticulate::py_install(packages =
-# 'umap-learn')
-pbmc <- RunTSNE(pbmc, dims = 1:10)
-# note that you can set `label = TRUE` or use the LabelClusters function to help label
-# individual clusters
-DimPlot(pbmc, reduction = "tsne")
+data <- RunTSNE(data, dims = 1:100)
+DimPlot(data, reduction = "tsne")
 ```
-
-## Export results so far
-
-```{r}
-saveRDS(pbmc, file = "../../data/tutorial/pbmc_tutorial.rds")
-```
-
--   **Note**: .rds format can be used in python as well. use `pyreadr`
 
 ## Find DEG
-- markers of cluster2
+- compare all clusters
 
 ```{r}
-# find all markers of cluster 2
-cluster2.markers <- FindMarkers(pbmc, ident.1 = 2, min.pct = 0.25)
-head(cluster2.markers, n = 5)
-```
-
-- markers of cluster5 compared to cluster 0-3
-
-```{r}
-# find all markers distinguishing cluster 5 from clusters 0 and 3
-cluster5.markers <- FindMarkers(pbmc, ident.1 = 5, ident.2 = c(0, 3), min.pct = 0.25)
-head(cluster5.markers, n = 5)
-```
-
-- iteratively compare all clusters
-
-```{r}
-# find markers for every cluster compared to all remaining cells, report only the positive
-# ones
-pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-pbmc.markers %>%
+data.markers <- FindAllMarkers(data, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+data.markers %>%
     group_by(cluster) %>%
     slice_max(n = 2, order_by = avg_log2FC)
 ```
 
-- ROC can be a measure of differential expressions as explanatory variables
-
 ```{r}
-cluster0.markers <- FindMarkers(pbmc, ident.1 = 0, logfc.threshold = 0.25, test.use = "roc", only.pos = TRUE)
-cluster0.markers
+if (! dir.exists("../../data/gse165388_deg")) {
+  dir.create("../../data/gse165388_deg")
+}
+
+write.csv(data.markers, "../../data/gse165388_deg/gw9_deg.csv")
+```
+
+
+- heatmap
+```{r, fig.dim=c(20, 20), out.width = "400px"}
+data.markers %>%
+    group_by(cluster) %>%
+    top_n(n = 10, wt = avg_log2FC) -> top10
+DoHeatmap(data, features = top10$gene) + NoLegend()
 ```
 
 ## Visualization
 
 ```{r}
-VlnPlot(pbmc, features = c("MS4A1", "CD79A", "GAPDH", "TAPBPL", "GADD45G", "POLR1A"))
+VlnPlot(data, features = c(
+  "NEUROD6", "SIX3", "DLX6-AS1",
+  "SOX5", "SST", "TAC1"
+  ))
 ```
 
-- violing plot of rawcounts
+```{r}
+VlnPlot(data, features = c(
+  "HIST1H4C", "CCND2", "VIM",
+  "CENPF", "PTN", "EOMES"
+  ))
+```
+
 
 ```{r}
-# you can plot raw counts as well
-VlnPlot(pbmc, features = c("NKG7", "PF4", "POLR2A"), slot = "counts", log = TRUE)
+VlnPlot(data, features = c(
+  "IGFBP7", "HBG2", "	PCP4", "SPP1"
+  ))
 ```
 
 - scatter plot
-
 ```{r}
-FeaturePlot(pbmc, features = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "PPBP",
-    "CD8A", "UGT8", "CD44"))
+FeaturePlot(data, features = c(
+  "NEUROD6", "SIX3", "DLX6-AS1",
+  "SOX5", "SST", "TAC1"
+  ))
 ```
 
-- heatmap
+```{r}
+FeaturePlot(data, features = c(
+  "HIST1H4C", "CCND2", "VIM",
+  "CENPF", "PTN", "EOMES"
+  ))
+```
 
 ```{r}
-pbmc.markers %>%
-    group_by(cluster) %>%
-    top_n(n = 10, wt = avg_log2FC) -> top10
-DoHeatmap(pbmc, features = top10$gene) + NoLegend()
+FeaturePlot(data, features = c(
+  "IGFBP7", "HBG2", "	PCP4", "SPP1"
+  ))
+```
+
+```{r}
+if (! dir.exists("../../data/gse165388_cluster")) {
+  dir.create("../../data/gse165388_cluster")
+}
+
+saveRDS(Idents(data), file = "../../data/gse165388_cluster/gw9.rds")
 ```
 
 - After these procedure, clusters are **manually** annotated
 
-```{r}
+
 new.cluster.ids <- c("Naive CD4 T", "CD14+ Mono", "Memory CD4 T", "B", "CD8 T", "FCGR3A+ Mono",
     "NK", "DC", "Platelet")
 names(new.cluster.ids) <- levels(pbmc)
 pbmc <- RenameIdents(pbmc, new.cluster.ids)
 DimPlot(pbmc, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
-```
+
 
 ### Expot all results
 
-```{r}
 saveRDS(pbmc, file = "../../data/tutorial/pbmc_tutorial_all.rds")
-```
-
-## Cmds of RNotebook
-
--   *Insert Chunk*: `Opt+Cmd+I`
--   *Run*: `Shift+Cmd+Return`
--   *Preview*: `Shit+Cmd+K`
--   *Save*: `Cmd+S`
