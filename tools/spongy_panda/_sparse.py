@@ -1,4 +1,5 @@
 import json
+import os
 import pickle
 from typing import List
 
@@ -342,6 +343,8 @@ class SparseDF():
         mtx = self.t().__call__() if transpose else self.__call__()
         barcodes = self.index if transpose else self.columns
         features = self.columns if transpose else self.index
+
+        os.makedirs(path, exist_ok=True)
 
         mmwrite(
             f"{path}/matrix.mtx",
