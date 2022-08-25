@@ -93,9 +93,12 @@ def load_npz(
 def load_mtx(
     filename: str,
     colidx_json: str = None,
-    from_r: bool = False
+    from_r: bool = False,
+    transpose: bool = None,
 ) -> SparseDF:
-    return SparseDF(
+    transpose = from_r if transpose is None else transpose
+    ret = SparseDF(
         mmread(filename).tocsc(),
         **read_json(colidx_json, from_r)
         )
+    return ret.t() if transpose else ret
