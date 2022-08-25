@@ -3,7 +3,7 @@
 library(Matrix)
 library(jsonlite)
 
-read_as_sparse <- function(matrix, filenames){
+save_gdcmatrix <- function(matrix, filenames){
 
     col <- colnames(matrix)
     idx <- rownames(matrix)
