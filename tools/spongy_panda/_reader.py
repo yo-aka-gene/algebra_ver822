@@ -4,8 +4,10 @@ import pickle
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
+from scipy.io import mmread
 
 from ._sparse import SparseDF
+from tools.r import read_json
 
 
 def read_csv(
@@ -87,4 +89,13 @@ def load_npz(
         d = dict(index=None, columns=None)
         
     return SparseDF(df, **d)
-    
+
+def load_mtx(
+    filename: str,
+    colidx_json: str = None,
+    from_r: bool = False
+) -> SparseDF:
+    return SparseDF(
+        mmread(filename).tocsc(),
+        **read_json(colidx_json, from_r)
+        )
