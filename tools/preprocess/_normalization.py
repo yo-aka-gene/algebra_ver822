@@ -96,4 +96,4 @@ def fmt_raw(
         else:
             temp = pd.read_csv(v, index_col=index_col, names=names).astype(dtype)
         
-        temp.to_csv(f"{save_dir}/{filename}.{v.split('.')[-1]}", index=True)
+        spd.pandas2sdf(temp).to_mtx(f"{save_dir}/{filename}_.{v.split('.')[-1][-2:]}", to_r=True)
