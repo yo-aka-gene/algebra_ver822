@@ -23,6 +23,8 @@ class SparseDF():
         self.columns = columns
         self.shape = self.values.shape
         self.T = self.values.T
+        self.loc = _Locator(self.values, index, columns)
+        self.iloc  = self.loc
         
     def __call__(self):
         return sp.csc_matrix(self.values)
@@ -380,3 +382,21 @@ def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
     return SparseDF(
         data, index=index, columns=columns
     )
+
+def _Locator():
+    def __init__(
+        self,
+        values: np.ndarray,
+        index: list,
+        columns: list
+    ):
+        self.values = values
+        self.index = index
+        self.columns = columns
+    
+    def __getitem__(self, item):
+        return pd.DataFrame(
+            self.values,
+            index=self.index,
+            columns=self.columns
+        )[item]
