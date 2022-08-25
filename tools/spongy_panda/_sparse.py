@@ -383,7 +383,7 @@ def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
         data, index=index, columns=columns
     )
 
-def _Locator():
+class _Locator():
     def __init__(
         self,
         values: np.ndarray,
