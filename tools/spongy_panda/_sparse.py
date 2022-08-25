@@ -5,6 +5,9 @@ from typing import List
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
+from scipy.io import mmwrite
+
+from tools.r import list2tsv
 
 
 class SparseDF():
@@ -324,6 +327,32 @@ class SparseDF():
                 columns=self.columns.to_list()
             )
             json.dump(d, f)
+    
+    def to_mtx(
+        self,
+        path :str,
+        to_r: bool = False,
+        transpose: bool = None,
+        comment: str = '',
+        field: str = None,
+        precision: int = None,
+        symmetry: str = None
+        ):
+        transpose = to_r if transpose is None else transpose
+        mtx = self.t().__call__() if transpose else self.__call__()
+        barcodes = self.index if transpose else self.columns
+        features = self.columns if transpose else self.index
+
+        mmwrite(
+            f"{path}/matrix.mtx",
+            mtx,
+            comment=comment,
+            field=field,
+            precision=precision,
+            symmetry=symmetry
+        )
+        list2tsv(barcodes, f"{path}/barcodes.tsv")
+        list2tsv(features, f"{path}/features.tsv")
 
             
 def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
