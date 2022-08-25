@@ -186,7 +186,10 @@ rsconnect/
 *.tar
 data/*/*.csv
 data/*/*.csv*
+data/*/*.json
+data/*/*.mtx
 data/*/*.pkl
+data/*/*.txt
 *.gz
 *.tsv
 *.mtx
