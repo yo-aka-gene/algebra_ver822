@@ -48,7 +48,7 @@ saveRDS(data, paste0(dir.name, "/gw9_raw.rds"))
 save_gdcmatrix(GetAssayData(data), paste0(dir.name, "/gw9_raw"))
 ```
 
----
+
 ## QC
 ```{r}
 data[["percent.mt"]] <- PercentageFeatureSet(data, pattern = "^MT-")
@@ -90,7 +90,7 @@ saveRDS(data, paste0(dir.name, "/gw9_log.rds"))
 save_gdcmatrix(GetAssayData(data), paste0(dir.name, "/gw9_log"))
 ```
 
----
+
 ### Export SeuratObject
 ```{r}
 saveRDS(data, file = paste0(dir.name, "/gw9_seuratobject.rds"))

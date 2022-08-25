@@ -22,6 +22,7 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
+library(jsonlite)
 library(Matrix)
 library(patchwork)
 library(Seurat)
@@ -32,6 +33,8 @@ library(Seurat)
     ## Attaching sp
 
 ``` r
+source("../tools/spongy_panda/export_gdcmatrix.R")
+
 raw.data <- Read10X(data.dir = "../../data/gse165388/GSM5032680_GW9/")
 data <- CreateSeuratObject(counts = raw.data, project = "GSE165388_GW9", min.cells = 3, min.features = 200)
 data
@@ -41,28 +44,7 @@ data
     ## 22240 features across 12676 samples within 1 assay 
     ## Active assay: RNA (22240 features, 0 variable features)
 
-### check matrix
-
-    ## 5 x 30 sparse Matrix of class "dgCMatrix"
-
-    ##    [[ suppressing 30 column names 'AAACCCAAGCTGAGCA-1', 'AAACCCAAGGAACTCG-1', 'AAACCCAAGTCCCAAT-1' ... ]]
-
-    ##                                                                          
-    ## GAPDH 5 4 9 . 16 1 10 12 . 1 1 30 13  8 . 5 4 5 2 4 1 8 1 18 6 11 2 8 6 6
-    ## NES   1 . 1 2  3 .  .  . . 1 .  2  3  1 . 1 . . . . . . .  7 .  . . . . .
-    ## DCX   6 6 8 1  3 .  5  6 5 7 1  4  1 12 1 7 . 1 6 1 . 1 2  . 4  2 . 4 4 .
-    ## TUBB3 . . . .  . .  .  . . . .  1  .  . . . . . . . . . .  . .  . . . . .
-    ## GFAP  . . . .  . .  .  . . . .  .  .  . . . . . . . . . .  . .  . . . . .
-
-### check difference between dense matrix and sparse matix
-
--   dense matrix
-
-<!-- -->
-
-    ## 3413527648 bytes
-
-## Export raw matrix
+### make difrectory to save outputs
 
 ``` r
 dir.name <- "../../data/gse165388_processed"
@@ -70,18 +52,22 @@ dir.name <- "../../data/gse165388_processed"
 if (! dir.exists(dir.name)) {
   dir.create(dir.name)
 }
-
-writeMM(GetAssayData(data), file = paste0(dir.name, "/gw9_raw.mtx"))
 ```
 
-    ## NULL
+### check matrix dimensionality
 
 ``` r
-capture.output(colnames(GetAssayData(data)),file = paste0(dir.name, "/gw9_raw_samples.txt"))
-capture.output(rownames(GetAssayData(data)), file = paste0(dir.name, "/gw9_raw_genes.txt"))
+dim(GetAssayData(data))
 ```
 
-------------------------------------------------------------------------
+    ## [1] 22240 12676
+
+### Export raw matrix
+
+``` r
+saveRDS(data, paste0(dir.name, "/gw9_raw.rds"))
+save_gdcmatrix(GetAssayData(data), paste0(dir.name, "/gw9_raw"))
+```
 
 ## QC
 
@@ -111,17 +97,13 @@ plot2
 
 ![](01_preprocess_GSE165388_gw9_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
-## filter submatrix
+### filter submatrix
 
 ``` r
 data <- subset(data, subset = nFeature_RNA > 200 & nFeature_RNA < 5000 & percent.mt < 20)
 ```
 
-## Normalization
-
-``` r
-data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 10000)
-```
+### check if the matrix is filtered
 
 ``` r
 dim(GetAssayData(data))
@@ -129,26 +111,20 @@ dim(GetAssayData(data))
 
     ## [1] 22240 12176
 
-## Export Normalized (filtered) matrix
+### Normalization
 
 ``` r
-dir.name <- "../../data/gse165388_processed"
-
-if (! dir.exists(dir.name)) {
-  dir.create(dir.name)
-}
-
-writeMM(GetAssayData(data), file = paste0(dir.name, "/gw9_log.mtx"))
+data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 10000)
 ```
 
-    ## NULL
+### Export Normalized (filtered) matrix
 
 ``` r
-capture.output(colnames(GetAssayData(data)),file = paste0(dir.name, "/gw9_log_samples.txt"))
-capture.output(rownames(GetAssayData(data)), file = paste0(dir.name, "/gw9_log_genes.txt"))
+saveRDS(data, paste0(dir.name, "/gw9_log.rds"))
+save_gdcmatrix(GetAssayData(data), paste0(dir.name, "/gw9_log"))
 ```
 
-## Export SeuratObject
+### Export SeuratObject
 
 ``` r
 saveRDS(data, file = paste0(dir.name, "/gw9_seuratobject.rds"))
