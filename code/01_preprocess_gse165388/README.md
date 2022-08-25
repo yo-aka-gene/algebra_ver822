@@ -1,6 +1,6 @@
 # Schematic of this directory
 ---
-```{mermaid}
+```mermaid
 graph LR
     A("GW9") =="preprocess"==> E("GW9")
     B("GW10")=="preprocess"==> F("GW10")
@@ -27,7 +27,7 @@ graph LR
 
 ---
 # Whole Picture of the Analysis
-```{mermaid}
+```mermaid
 graph LR
 I(("GSE165388"))-."Factor Analysis".->J("Cell Classes")-."GRN".->K{"comparison"}
 
