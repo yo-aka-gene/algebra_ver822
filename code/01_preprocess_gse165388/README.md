@@ -7,7 +7,7 @@ graph LR
     C("GW11")=="preprocess"==> G("GW11")
     D("GW12")=="preprocess"==> H("GW12")
 
-    E-."conjugated".->I("GSE165388")
+    E-."conjugated".->I(("GSE165388"))
     F-."conjugated".->I
     G-."conjugated".->I
     H-."conjugated".->I
@@ -29,7 +29,7 @@ graph LR
 # Whole Picture of the Analysis
 ```{mermaid}
 graph LR
-I("GSE165388")-."Factor Analysis".->J("Cell Classes")-."GRN".->K{"comparison"}
+I(("GSE165388"))-."Factor Analysis".->J("Cell Classes")-."GRN".->K{"comparison"}
 
     E("GW9")-."DEG".->L("annotation")
     F("GW10")-."DEG".->M("annotation")
