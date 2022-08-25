@@ -16,37 +16,36 @@ output:
 
 ```{r set-up}
 library(dplyr)
+library(jsonlite)
 library(Matrix)
 library(patchwork)
 library(Seurat)
+
+source("../tools/spongy_panda/export_gdcmatrix.R")
 
 raw.data <- Read10X(data.dir = "../../data/gse165388/GSM5032680_GW9/")
 data <- CreateSeuratObject(counts = raw.data, project = "GSE165388_GW9", min.cells = 3, min.features = 200)
 data
 ```
-### check matrix
-```{r, echo=FALSE}
-raw.data[c("GAPDH", "NES", "DCX", "TUBB3", "GFAP"), 1:30]
-```
 
-### check difference between dense matrix and sparse matix
-- dense matrix
-```{r, echo=FALSE}
-dense.size <- object.size(as.matrix(raw.data))
-dense.size
-```
-
-## Export raw matrix
+### make difrectory to save outputs
 ```{r}
 dir.name <- "../../data/gse165388_processed"
 
 if (! dir.exists(dir.name)) {
   dir.create(dir.name)
 }
+```
 
-writeMM(GetAssayData(data), file = paste0(dir.name, "/gw9_raw.mtx"))
-capture.output(colnames(GetAssayData(data)),file = paste0(dir.name, "/gw9_raw_samples.txt"))
-capture.output(rownames(GetAssayData(data)), file = paste0(dir.name, "/gw9_raw_genes.txt"))
+### check matrix dimensionality
+```{r}
+dim(GetAssayData(data))
+```
+
+### Export raw matrix
+```{r}
+saveRDS(data, paste0(dir.name, "/gw9_raw.rds"))
+save_gdcmatrix(GetAssayData(data), paste0(dir.name, "/gw9_raw"))
 ```
 
 ---
@@ -70,34 +69,29 @@ plot1
 plot2
 ```
 
-## filter submatrix
+### filter submatrix
 ```{r}
 data <- subset(data, subset = nFeature_RNA > 200 & nFeature_RNA < 5000 & percent.mt < 20)
 ```
 
-## Normalization
-```{r}
-data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 10000)
-```
-
+### check if the matrix is filtered
 ```{r}
 dim(GetAssayData(data))
 ```
 
-## Export Normalized (filtered) matrix
+### Normalization
 ```{r}
-dir.name <- "../../data/gse165388_processed"
-
-if (! dir.exists(dir.name)) {
-  dir.create(dir.name)
-}
-
-writeMM(GetAssayData(data), file = paste0(dir.name, "/gw9_log.mtx"))
-capture.output(colnames(GetAssayData(data)),file = paste0(dir.name, "/gw9_log_samples.txt"))
-capture.output(rownames(GetAssayData(data)), file = paste0(dir.name, "/gw9_log_genes.txt"))
+data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 10000)
 ```
 
-## Export SeuratObject
+### Export Normalized (filtered) matrix
+```{r}
+saveRDS(data, paste0(dir.name, "/gw9_log.rds"))
+save_gdcmatrix(GetAssayData(data), paste0(dir.name, "/gw9_log"))
+```
+
+---
+### Export SeuratObject
 ```{r}
 saveRDS(data, file = paste0(dir.name, "/gw9_seuratobject.rds"))
 ```
