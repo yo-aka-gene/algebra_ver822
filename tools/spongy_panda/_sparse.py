@@ -383,6 +383,36 @@ def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
         data, index=index, columns=columns
     )
 
+
+def force_concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
+    shape = [v.shape[0 if axis == 1 else 1] for v in l_sdf]
+    lst = [
+        [l_sdf[i] for i, v in enumerate(shape) if v==val] for val in np.unique(shape)
+        ]
+
+    data = np.vstack([
+        sp.vstack(
+            [ v() for v in sublist]
+            ).toarray() for sublist in lst
+        ]) if axis == 0 else np.hstack([
+            sp.hstack(
+                [v() for v in sublist in lst]
+            ).toarray() for sublist in lst
+        ])
+
+    index = np.stack([
+        v.index for v in l_sdf
+    ]).ravel() if axis == 0 else l_sdf[0].index
+    
+    columns = np.stack([
+        v.columns for v in l_sdf
+    ]).ravel() if axis == 1 else l_sdf[0].columns
+
+    return SparseDF(
+        data, index=index, columns=columns
+    )
+
+
 class _Locator():
     def __init__(
         self,
