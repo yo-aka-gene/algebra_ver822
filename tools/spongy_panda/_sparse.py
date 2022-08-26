@@ -409,7 +409,7 @@ def force_concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
     ]).ravel() if axis == 1 else l_sdf[0].columns
 
     return SparseDF(
-        data, index=index, columns=columns
+        sp.csc_matrix(data), index=index, columns=columns
     )
 
 
