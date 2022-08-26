@@ -81,7 +81,8 @@ def fmt_raw(
     l_data: List[str],
     save_dir: str,
     index_col: int = 0,
-    dtype: Any = None
+    dtype: Any = None,
+    to_r: bool = False
 ) -> None:
     head = "Count"
     names = [head] + open(l_data[0]).readline().split(",")[1:]
@@ -96,4 +97,4 @@ def fmt_raw(
         else:
             temp = pd.read_csv(v, index_col=index_col, names=names).astype(dtype)
         
-        spd.pandas2sdf(temp).to_mtx(f"{save_dir}/{filename}_.{v.split('.')[-1][-2:]}", to_r=True)
+        spd.pandas2sdf(temp).to_mtx(f"{save_dir}/{filename}_.{v.split('.')[-1][-2:]}", to_r=to_r)
