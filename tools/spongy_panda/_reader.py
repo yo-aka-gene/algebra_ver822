@@ -102,3 +102,24 @@ def load_mtx(
         **read_json(colidx_json, from_r)
         )
     return ret.t() if transpose else ret
+
+
+def _read_tsv(filename: str) -> list:
+    data = pd.read_csv(filename, sep="\t")
+    return data.columns.tolist() + data.values.ravel().tolist()
+
+
+def load_10xdir(
+    path: str,
+    from_r: bool = False,
+    transpose: bool = None
+    ) -> SparseDF:
+    transpose = from_r if transpose is None else transpose
+
+    mtx = mmread(f"{path}/matrix.mtx").tocsc()
+
+    return SparseDF(
+        mtx.transpose() if transpose else mtx,
+        index=_read_tsv(f"{path}/barcodes.tsv")
+        columns=_read_tsv(f"{path}/features.tsv")
+    )
