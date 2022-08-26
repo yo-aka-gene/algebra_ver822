@@ -120,6 +120,6 @@ def load_10xdir(
 
     return SparseDF(
         mtx.transpose() if transpose else mtx,
-        index=_read_tsv(f"{path}/barcodes.tsv")
+        index=_read_tsv(f"{path}/barcodes.tsv"),
         columns=_read_tsv(f"{path}/features.tsv")
     )
