@@ -343,8 +343,8 @@ class SparseDF():
         ):
         transpose = to_r if transpose is None else transpose
         mtx = self.t().__call__() if transpose else self.__call__()
-        barcodes = self.index if transpose else self.columns
-        features = self.columns if transpose else self.index
+        barcodes = self.index
+        features = self.columns
 
         os.makedirs(path, exist_ok=True)
 
