@@ -121,7 +121,7 @@ def fmt_mtx(
     header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}"
     
     for i in tqdm([0], desc=f"Exporting log", total=1):
-        np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ", fmt=fmt, header=header)
+        np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ", fmt=fmt, header=header, comments="")
 
 
 def fmt_tsv(
