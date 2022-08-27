@@ -114,12 +114,12 @@ def fmt_mtx(
         data = np.loadtxt(
             f"{v}/matrix.mtx", delimiter=" ", skiprows=3, dtype=np.int32
         )
-        n_r += n_row if axis == 0 else 0
-        n_c += n_col if axis == 1 else 0
-        n_nz += n_nonzero
         archive = data if i == 0 else np.vstack([
             archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
         ])
+        n_r += n_row if axis == 0 else 0
+        n_c += n_col if axis == 1 else 0
+        n_nz += n_nonzero
     
     if mode in ["py2py", "r2r"]:
         header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}"
