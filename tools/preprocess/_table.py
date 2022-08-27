@@ -115,7 +115,7 @@ def fmt_mtx(
             archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
         ])
 
-    np.savetxt(f"{save_dir}/matrix.mtx", archive, delim=" ")
+    np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ")
     header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}\n"
 
     with open(f"{save_dir}/matrix.mtx", "r") as f:
@@ -150,5 +150,5 @@ def fmt_tsv(
             f"{l_path[0]}/{filenames}.tsv", delimiter="\t", dtype=str
         ).ravel()
     
-    np.savetxt(f"{save_dir}/{filenames}.tsv", ret.reshape(-1, 1), delim="\t")
+    np.savetxt(f"{save_dir}/{filenames}.tsv", ret.reshape(-1, 1), delimiter="\t")
 
