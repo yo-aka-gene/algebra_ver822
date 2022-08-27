@@ -97,8 +97,11 @@ def fmt_mtx(
     l_path: List[str],
     save_dir: str,
     fmt: str = "%.18e",
-    axis: int = 0
+    axis: int = 0,
+    mode: str = "py2r"
 ):
+    assert mode in ["py2r", "py2py", "r2py", "r2r"], \
+        f"invalid input: expected either of 'py2r', 'py2py', 'r2py', or 'r2r', got {mode}"
     n_r, n_c, n_nz = 0, 0, 0
 
     for i, v in tqdm(
@@ -118,8 +121,14 @@ def fmt_mtx(
             archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
         ])
     
-    header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}"
+    if mode in ["py2py", "r2r"]:
+        header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}"
     
+    else:
+        for i in tqdm([0], desc=f"Adjusting format", total=1):
+            archive = archive[:, [1, 0, 2]]
+            header = f"%%MatrixMarket matrix coodinate integer general\n{n_c} {n_r} {n_nz}"
+
     for i in tqdm([0], desc=f"Exporting log", total=1):
         np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ", fmt=fmt, header=header, comments="")
 
