@@ -127,7 +127,7 @@ def fmt_mtx(
     else:
         for i in tqdm([0], desc=f"Adjusting format", total=1):
             archive = archive[:, [1, 0, 2]]
-            header = f"%%MatrixMarket matrix coodinate integer general\n{n_c} {n_r} {n_nz}"
+            header = f"%%MatrixMarket matrix coordinate integer general\n{n_c} {n_r} {n_nz}"
 
     for i in tqdm([0], desc=f"Exporting log", total=1):
         np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ", fmt=fmt, header=header, comments="")
