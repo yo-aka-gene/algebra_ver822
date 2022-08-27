@@ -113,6 +113,38 @@ class SparseDF():
                 columns=None if axis == 1 else self.columns
             )
     
+    def mode(
+        self,
+        axis: int = 0,
+        numeric_only :bool = False,
+        dropna: bool = True
+        ):
+        return SparseDF(
+                sp.csc_matrix(self.to_df().mode(
+                    axis=axis,
+                    numeric_only=numeric_only,
+                    dropna=dropna
+                ).values),
+                index=None if axis == 0 else self.index,
+                columns=None if axis == 1 else self.columns
+            )
+    
+    def count(
+        self,
+        axis: int = 0,
+        level: int = None,
+        numeric_only :bool = False
+        ):
+        return SparseDF(
+                sp.csc_matrix(self.to_df().count(
+                    axis=axis,
+                    level=level,
+                    numeric_only=numeric_only
+                ).values),
+                index=None if axis == 0 else self.index,
+                columns=None if axis == 1 else self.columns
+            )
+    
     def describe(self):
         df = self.to_df().describe()
         return SparseDF(
