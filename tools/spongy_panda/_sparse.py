@@ -29,6 +29,9 @@ class SparseDF():
     def __call__(self):
         return sp.csc_matrix(self.values)
     
+    def tocsr(self):
+        return sp.csr_matrix(self.values)
+    
     def t(self):
         return SparseDF(
             sp.csc_matrix(self.values.T),
