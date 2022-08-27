@@ -138,7 +138,8 @@ def fmt_tsv(
     filenames: str,
     save_dir: str,
     unique: bool = True,
-    concat: bool = True
+    concat: bool = True,
+    alias: str = None,
 ):
     if concat:
         ret = []
@@ -157,4 +158,4 @@ def fmt_tsv(
             f"{l_path[0]}/{filenames}.tsv", delimiter="\t", dtype=str
         ).ravel()
     for i in tqdm([0], desc=f"Exporting {filenames}.tsv", total=1):
-        list2tsv(ret.tolist(), f"{save_dir}/{filenames}.tsv")
+        list2tsv(ret.tolist(), f"{save_dir}/{filenames if alias is None else alias}.tsv")
