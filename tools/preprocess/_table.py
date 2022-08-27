@@ -89,3 +89,41 @@ def fmt_table(
         sp.save_npz(f"{save_dir}/{filenames}.npz", sp.csc_matrix(df.values))
 
     return df
+
+
+def fmt_mtx(
+    l_path: List[str],
+    save_dir: str,
+    axis: int = 0
+):
+    n_r, n_c, n_nz = 0, 0, 0
+
+    for i, v in tqdm(
+        enumerate(l_path), desc="Concatenation", total=len(l_path)
+        ):
+        txt = open(f"{v}/matrix.mtx").readlines()
+        info = txt[2] if " " not in txt[1] else txt[1]
+        n_row, n_col, n_nonzero = map(lambda x: np.int32(x), info.split("\n")[0].split(" "))
+        
+        data = np.loadtxt(
+            f"{v}/matrix.mtx", delimiter=" ", skiprows=3, dtype=np.int32
+        )
+        n_r += n_row if axis == 0 else 0
+        n_c += n_col if axis == 1 else 0
+        n_nz += n_nonzero
+        archive = data if i == 0 else np.vstack([
+            archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
+        ])
+
+    np.savetxt(f"{save_dir}/matrix.mtx", archive, delim=" ")
+    header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}\n"
+
+    with open(f"{save_dir}/matrix.mtx", "r") as f:
+        table = f.read()
+
+    with open(f"{save_dir}/matrix.mtx", "w") as f:
+        f.write(header)
+        f.write(table)
+
+    
+
