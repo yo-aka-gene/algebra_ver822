@@ -96,6 +96,7 @@ def fmt_table(
 def fmt_mtx(
     l_path: List[str],
     save_dir: str,
+    fmt: str = "%.18e",
     axis: int = 0
 ):
     n_r, n_c, n_nz = 0, 0, 0
@@ -116,19 +117,11 @@ def fmt_mtx(
         archive = data if i == 0 else np.vstack([
             archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
         ])
+    
+    header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}"
+    
     for i in tqdm([0], desc=f"Exporting log", total=1):
-        np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ")
-    
-    header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}\n"
-
-    for i in tqdm([0], desc=f"Loading log", total=1):
-        with open(f"{save_dir}/matrix.mtx", "r") as f:
-            table = f.read()
-    
-    for i in tqdm([0], desc=f"Exporting matrix.mtx", total=1):
-        with open(f"{save_dir}/matrix.mtx", "w") as f:
-            f.write(header)
-            f.write(table)
+        np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ", fmt=fmt, header=header)
 
 
 def fmt_tsv(
