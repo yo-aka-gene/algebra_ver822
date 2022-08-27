@@ -5,6 +5,8 @@ import pandas as pd
 import scipy.sparse as sp
 from tqdm.notebook import tqdm
 
+from  tools.r import list2tsv
+
 def submatrix(
     l_data: List[str],
     save_dir: str,
@@ -136,22 +138,21 @@ def fmt_tsv(
     unique: bool = True,
     concat: bool = True
 ):
-    if not concat:
+    if concat:
         ret = []
-        for i, v in tqdm(
-            enumerate(l_path), desc="Concatenation", total=len(l_path)
+        for v in tqdm(
+            l_path, desc="Concatenation", total=len(l_path)
             ):
             ret += [
                 np.loadtxt(
                     f"{v}/{filenames}.tsv", delimiter="\t", dtype=str
                 ).ravel()
             ]
-        ret = np.unique(np.stack(ret)) if unique else np.stack(ret)
+        ret = np.unique(np.concatenate(ret)) if unique else np.concatenate(ret)
 
     else:
         ret = np.loadtxt(
             f"{l_path[0]}/{filenames}.tsv", delimiter="\t", dtype=str
         ).ravel()
     for i in tqdm([0], desc=f"Exporting {filenames}.tsv", total=1):
-        np.savetxt(f"{save_dir}/{filenames}.tsv", ret.reshape(-1, 1), delimiter="\t")
-
+        list2tsv(ret.tolist(), f"{save_dir}/{filenames}.tsv")
