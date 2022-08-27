@@ -114,16 +114,19 @@ def fmt_mtx(
         archive = data if i == 0 else np.vstack([
             archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
         ])
-
-    np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ")
+    for i in tqdm([0], desc=f"Exporting log", total=1):
+        np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ")
+    
     header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}\n"
 
-    with open(f"{save_dir}/matrix.mtx", "r") as f:
-        table = f.read()
-
-    with open(f"{save_dir}/matrix.mtx", "w") as f:
-        f.write(header)
-        f.write(table)
+    for i in tqdm([0], desc=f"Loading log", total=1):
+        with open(f"{save_dir}/matrix.mtx", "r") as f:
+            table = f.read()
+    
+    for i in tqdm([0], desc=f"Exporting matrix.mtx", total=1):
+        with open(f"{save_dir}/matrix.mtx", "w") as f:
+            f.write(header)
+            f.write(table)
 
 
 def fmt_tsv(
@@ -149,6 +152,6 @@ def fmt_tsv(
         ret = np.loadtxt(
             f"{l_path[0]}/{filenames}.tsv", delimiter="\t", dtype=str
         ).ravel()
-    
-    np.savetxt(f"{save_dir}/{filenames}.tsv", ret.reshape(-1, 1), delimiter="\t")
+    for i in tqdm([0], desc=f"Exporting {filenames}.tsv", total=1):
+        np.savetxt(f"{save_dir}/{filenames}.tsv", ret.reshape(-1, 1), delimiter="\t")
 
