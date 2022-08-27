@@ -117,8 +117,8 @@ def fmt_mtx(
         archive = data if i == 0 else np.vstack([
             archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
         ])
-        n_r += n_row if axis == 0 else 0
-        n_c += n_col if axis == 1 else 0
+        n_r += n_row if axis == 0 or i == 0 else 0
+        n_c += n_col if axis == 1 or i == 0 else 0
         n_nz += n_nonzero
     
     if mode in ["py2py", "r2r"]:
