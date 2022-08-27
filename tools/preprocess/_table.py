@@ -1,5 +1,5 @@
 import os
-from typing import Callable, List, Union
+from typing import List
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
