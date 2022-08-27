@@ -125,5 +125,30 @@ def fmt_mtx(
         f.write(header)
         f.write(table)
 
+
+def fmt_tsv(
+    l_path: List[str],
+    filenames: str,
+    save_dir: str,
+    unique: bool = True,
+    concat: bool = True
+):
+    if not concat:
+        ret = []
+        for i, v in tqdm(
+            enumerate(l_path), desc="Concatenation", total=len(l_path)
+            ):
+            ret += [
+                np.loadtxt(
+                    f"{v}/{filenames}.tsv", delimiter="\t", dtype=str
+                ).ravel()
+            ]
+        ret = np.unique(np.stack(ret)) if unique else np.stack(ret)
+
+    else:
+        ret = np.loadtxt(
+            f"{l_path[0]}/{filenames}.tsv", delimiter="\t", dtype=str
+        ).ravel()
     
+    np.savetxt(f"{save_dir}/{filenames}.tsv", ret.reshape(-1, 1), delim="\t")
 
