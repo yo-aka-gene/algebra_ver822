@@ -1,3 +1,4 @@
+import glob
 import json
 import pickle
 
@@ -118,8 +119,11 @@ def load_10xdir(
 
     mtx = mmread(f"{path}/matrix.mtx").tocsc()
 
+    col = f"{path}/genes.tsv"
+    col = col if col in glob.glob(f"{path}/*") else f"{path}/features.tsv"
+
     return SparseDF(
         mtx.transpose() if transpose else mtx,
         index=_read_tsv(f"{path}/barcodes.tsv"),
-        columns=_read_tsv(f"{path}/features.tsv")
+        columns=_read_tsv(col)
     )
