@@ -24,7 +24,7 @@ class SparseDF():
         self.shape = self.values.shape
         self.T = self.values.T
         self.loc = _Locator(self.values, index, columns)
-        self.iloc  = self.loc
+        self.iloc  = _IdLocator(self.values, index, columns)
         
     def __call__(self):
         return sp.csc_matrix(self.values)
@@ -346,7 +346,7 @@ class SparseDF():
         )
     
     def __getitem__(self, item):
-        return self.to_df()[item] if isinstance(item, str) else self.values[item]
+        return self.__call__()[item]
     
     def to_pickle(self, filename: str):
         with open(filename, "wb") as f:
@@ -460,8 +460,44 @@ class _Locator():
         self.columns = columns
     
     def __getitem__(self, item):
-        return pd.DataFrame(
-            self.values,
-            index=self.index,
-            columns=self.columns
-        )[item]
+        assert isinstance(item, tuple), \
+            f"invalid subscription: {item}"
+
+        assert len(item) == 2,\
+            f"invalid subscription: {item}"
+
+        item = (
+            [int(np.where(np.array(self.index)==v)[0]) for v in item[0]],
+            [int(np.where(np.array(self.index)==v)[0]) for v in item[1]]
+        )
+
+        return SparseDF(
+            sp.csc_matrix(self.values)[item],
+            index=self.index[item[0]],
+            columns=self.columns[item[1]]
+        )
+
+
+class _IdLocator():
+    def __init__(
+        self,
+        values: np.ndarray,
+        index: list,
+        columns: list
+    ):
+        self.values = values
+        self.index = index
+        self.columns = columns
+    
+    def __getitem__(self, item):
+        assert isinstance(item, tuple), \
+            f"invalid subscription: {item}"
+
+        assert len(item) == 2,\
+            f"invalid subscription: {item}"
+
+        return SparseDF(
+            sp.csc_matrix(self.values)[item],
+            index=self.index[item[0]],
+            columns=self.columns[item[1]]
+        )
