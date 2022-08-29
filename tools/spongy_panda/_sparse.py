@@ -392,7 +392,7 @@ class SparseDF():
             symmetry=symmetry
         )
         list2tsv(barcodes, f"{path}/barcodes.tsv")
-        list2tsv(features, f"{path}/features.tsv")
+        list2tsv(features, f"{path}/genes.tsv" if to_r else f"{path}/features.tsv")
 
             
 def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
