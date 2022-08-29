@@ -1,10 +1,14 @@
 import json
+import os
 import pickle
 from typing import List
 
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
+from scipy.io import mmwrite
+
+from tools.r import list2tsv
 
 
 class SparseDF():
@@ -19,9 +23,14 @@ class SparseDF():
         self.columns = columns
         self.shape = self.values.shape
         self.T = self.values.T
+        self.loc = _Locator(self.values, index, columns)
+        self.iloc  = _IdLocator(self.values, index, columns)
         
     def __call__(self):
         return sp.csc_matrix(self.values)
+    
+    def tocsr(self):
+        return sp.csr_matrix(self.values)
     
     def t(self):
         return SparseDF(
@@ -103,6 +112,38 @@ class SparseDF():
     def median(self, axis: int = 0):
         return SparseDF(
                 sp.csc_matrix(self.to_df().median(axis=axis).values),
+                index=None if axis == 0 else self.index,
+                columns=None if axis == 1 else self.columns
+            )
+    
+    def mode(
+        self,
+        axis: int = 0,
+        numeric_only :bool = False,
+        dropna: bool = True
+        ):
+        return SparseDF(
+                sp.csc_matrix(self.to_df().mode(
+                    axis=axis,
+                    numeric_only=numeric_only,
+                    dropna=dropna
+                ).values),
+                index=None if axis == 0 else self.index,
+                columns=None if axis == 1 else self.columns
+            )
+    
+    def count(
+        self,
+        axis: int = 0,
+        level: int = None,
+        numeric_only :bool = False
+        ):
+        return SparseDF(
+                sp.csc_matrix(self.to_df().count(
+                    axis=axis,
+                    level=level,
+                    numeric_only=numeric_only
+                ).values),
                 index=None if axis == 0 else self.index,
                 columns=None if axis == 1 else self.columns
             )
@@ -305,7 +346,7 @@ class SparseDF():
         )
     
     def __getitem__(self, item):
-        return self.to_df()[item] if isinstance(item, str) else self.values[item]
+        return self.__call__()[item]
     
     def to_pickle(self, filename: str):
         with open(filename, "wb") as f:
@@ -324,6 +365,34 @@ class SparseDF():
                 columns=self.columns.to_list()
             )
             json.dump(d, f)
+    
+    def to_mtx(
+        self,
+        path :str,
+        to_r: bool = False,
+        transpose: bool = None,
+        comment: str = '',
+        field: str = None,
+        precision: int = None,
+        symmetry: str = None
+        ):
+        transpose = to_r if transpose is None else transpose
+        mtx = self.t().__call__() if transpose else self.__call__()
+        barcodes = self.index
+        features = self.columns
+
+        os.makedirs(path, exist_ok=True)
+
+        mmwrite(
+            f"{path}/matrix.mtx",
+            mtx,
+            comment=comment,
+            field=field,
+            precision=precision,
+            symmetry=symmetry
+        )
+        list2tsv(barcodes, f"{path}/barcodes.tsv")
+        list2tsv(features, f"{path}/genes.tsv" if to_r else f"{path}/features.tsv")
 
             
 def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
@@ -348,3 +417,87 @@ def concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
     return SparseDF(
         data, index=index, columns=columns
     )
+
+
+def force_concat(l_sdf: List[SparseDF], axis: int = 0) -> SparseDF:
+    shape = [v.shape[0 if axis == 1 else 1] for v in l_sdf]
+    lst = [
+        [l_sdf[i] for i, v in enumerate(shape) if v==val] for val in np.unique(shape)
+        ]
+
+    data = np.vstack([
+        sp.vstack(
+            [ v() for v in sublist]
+            ).toarray() for sublist in lst
+        ]) if axis == 0 else np.hstack([
+            sp.hstack(
+                [v() for v in sublist in lst]
+            ).toarray() for sublist in lst
+        ])
+
+    index = np.stack([
+        v.index for v in l_sdf
+    ]).ravel() if axis == 0 else l_sdf[0].index
+    
+    columns = np.stack([
+        v.columns for v in l_sdf
+    ]).ravel() if axis == 1 else l_sdf[0].columns
+
+    return SparseDF(
+        sp.csc_matrix(data), index=index, columns=columns
+    )
+
+
+class _Locator():
+    def __init__(
+        self,
+        values: np.ndarray,
+        index: list,
+        columns: list
+    ):
+        self.values = values
+        self.index = index
+        self.columns = columns
+    
+    def __getitem__(self, item):
+        assert isinstance(item, tuple), \
+            f"invalid subscription: {item}"
+
+        assert len(item) == 2,\
+            f"invalid subscription: {item}"
+
+        item = (
+            [int(np.where(np.array(self.index)==v)[0]) for v in item[0]],
+            [int(np.where(np.array(self.index)==v)[0]) for v in item[1]]
+        )
+
+        return SparseDF(
+            sp.csc_matrix(self.values)[item],
+            index=self.index[item[0]],
+            columns=self.columns[item[1]]
+        )
+
+
+class _IdLocator():
+    def __init__(
+        self,
+        values: np.ndarray,
+        index: list,
+        columns: list
+    ):
+        self.values = values
+        self.index = index
+        self.columns = columns
+    
+    def __getitem__(self, item):
+        assert isinstance(item, tuple), \
+            f"invalid subscription: {item}"
+
+        assert len(item) == 2,\
+            f"invalid subscription: {item}"
+
+        return SparseDF(
+            sp.csc_matrix(self.values)[item],
+            index=self.index[item[0]],
+            columns=self.columns[item[1]]
+        )

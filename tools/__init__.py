@@ -4,6 +4,7 @@ from . import factor_analysis
 from . import sklearn_wrapper
 from . import spongy_panda
 from . import random
+from . import r
 
 __all__ = [
     "preprocess",
@@ -11,5 +12,6 @@ __all__ = [
     "factor_analysis",
     "sklearn_wrapper",
     "spongy_panda",
-    "random"
+    "random",
+    "r"
 ]

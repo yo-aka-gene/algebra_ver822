@@ -1,0 +1,75 @@
+---
+title: "Allen"
+author: Yuji Okano
+date: August 27, 2022
+output:
+  md_document:
+    variant: markdown_github
+---
+
+# 01_preprocess
+## Do before
+1. run `code/01-2_preprocess_for_r.ipynb`
+
+## Objectives
+1. preprocessing Allen data
+
+### load data and make seurat object
+
+```{r set-up}
+library(dplyr)
+library(jsonlite)
+library(Matrix)
+library(patchwork)
+library(Seurat)
+
+source("../tools/spongy_panda/export_gdcmatrix.R")
+
+data_id <- "m1_10x"
+
+raw.data <- Read10X(data.dir = "../../data/m1_10x_resampled/resampled", gene.column = 1)
+data <- CreateSeuratObject(counts = raw.data, project = "Human M1 10x", min.cells = 3, min.features = 200)
+data
+```
+
+### make difrectory to save outputs
+```{r}
+dir.name <- "../../data/m1_10x_processed"
+
+if (! dir.exists(dir.name)) {
+  dir.create(dir.name)
+}
+```
+
+### check matrix dimensionality
+```{r, include=FALSE}
+dim(GetAssayData(data))
+```
+
+## QC
+```{r}
+data[["percent.mt"]] <- PercentageFeatureSet(data, pattern = "^MT-")
+```
+
+```{r}
+VlnPlot(data, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+```
+
+- omitted (no genes matched `^MT-`)
+- memo: to use ribosomal genes, use `^RP[SL]`
+
+### Normalization
+```{r}
+data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 10000)
+```
+
+### Export Normalized (filtered) matrix
+```{r}
+saveRDS(data, paste0(dir.name, "/", data_id, "_log.rds"))
+```
+
+
+### Export SeuratObject
+```{r}
+saveRDS(data, file = paste0(dir.name, "/", data_id, "_seuratobject.rds"))
+```

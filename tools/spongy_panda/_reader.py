@@ -1,11 +1,14 @@
+import glob
 import json
 import pickle
 
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
+from scipy.io import mmread
 
 from ._sparse import SparseDF
+from tools.r import read_json
 
 
 def read_csv(
@@ -87,4 +90,40 @@ def load_npz(
         d = dict(index=None, columns=None)
         
     return SparseDF(df, **d)
-    
+
+def load_mtx(
+    filename: str,
+    colidx_json: str = None,
+    from_r: bool = False,
+    transpose: bool = None,
+) -> SparseDF:
+    transpose = from_r if transpose is None else transpose
+    ret = SparseDF(
+        mmread(filename).tocsc(),
+        **read_json(colidx_json, from_r)
+        )
+    return ret.t() if transpose else ret
+
+
+def _read_tsv(filename: str) -> list:
+    data = pd.read_csv(filename, sep="\t")
+    return data.columns.tolist() + data.values.ravel().tolist()
+
+
+def load_10xdir(
+    path: str,
+    from_r: bool = False,
+    transpose: bool = None
+    ) -> SparseDF:
+    transpose = from_r if transpose is None else transpose
+
+    mtx = mmread(f"{path}/matrix.mtx").tocsc()
+
+    col = f"{path}/genes.tsv"
+    col = col if col in glob.glob(f"{path}/*") else f"{path}/features.tsv"
+
+    return SparseDF(
+        mtx.transpose() if transpose else mtx,
+        index=_read_tsv(f"{path}/barcodes.tsv"),
+        columns=_read_tsv(col)
+    )

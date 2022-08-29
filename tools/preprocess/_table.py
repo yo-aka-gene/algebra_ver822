@@ -1,9 +1,11 @@
 import os
-from typing import Callable, List, Union
+from typing import List
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
 from tqdm.notebook import tqdm
+
+from  tools.r import list2tsv
 
 def submatrix(
     l_data: List[str],
@@ -89,3 +91,71 @@ def fmt_table(
         sp.save_npz(f"{save_dir}/{filenames}.npz", sp.csc_matrix(df.values))
 
     return df
+
+
+def fmt_mtx(
+    l_path: List[str],
+    save_dir: str,
+    fmt: str = "%.18e",
+    axis: int = 0,
+    mode: str = "py2r"
+):
+    assert mode in ["py2r", "py2py", "r2py", "r2r"], \
+        f"invalid input: expected either of 'py2r', 'py2py', 'r2py', or 'r2r', got {mode}"
+    n_r, n_c, n_nz = 0, 0, 0
+
+    for i, v in tqdm(
+        enumerate(l_path), desc="Concatenation", total=len(l_path)
+        ):
+        txt = open(f"{v}/matrix.mtx").readlines()
+        info = txt[2] if " " not in txt[1] else txt[1]
+        n_row, n_col, n_nonzero = map(lambda x: np.int32(x), info.split("\n")[0].split(" "))
+        
+        data = np.loadtxt(
+            f"{v}/matrix.mtx", delimiter=" ", skiprows=3, dtype=np.int32
+        )
+        archive = data if i == 0 else np.vstack([
+            archive, data + np.tile([n_r, 0, 0] if axis == 0 else [0, n_c, 0], (n_nonzero, 1))
+        ])
+        n_r += n_row if axis == 0 or i == 0 else 0
+        n_c += n_col if axis == 1 or i == 0 else 0
+        n_nz += n_nonzero
+    
+    if mode in ["py2py", "r2r"]:
+        header = f"%%MatrixMarket matrix coodinate integer general\n{n_r} {n_c} {n_nz}"
+    
+    else:
+        for i in tqdm([0], desc=f"Adjusting format", total=1):
+            archive = archive[:, [1, 0, 2]]
+            header = f"%%MatrixMarket matrix coordinate integer general\n{n_c} {n_r} {n_nz}"
+
+    for i in tqdm([0], desc=f"Exporting log", total=1):
+        np.savetxt(f"{save_dir}/matrix.mtx", archive, delimiter=" ", fmt=fmt, header=header, comments="")
+
+
+def fmt_tsv(
+    l_path: List[str],
+    filenames: str,
+    save_dir: str,
+    unique: bool = True,
+    concat: bool = True,
+    alias: str = None,
+):
+    if concat:
+        ret = []
+        for v in tqdm(
+            l_path, desc="Concatenation", total=len(l_path)
+            ):
+            ret += [
+                np.loadtxt(
+                    f"{v}/{filenames}.tsv", delimiter="\t", dtype=str
+                ).ravel()
+            ]
+        ret = np.unique(np.concatenate(ret)) if unique else np.concatenate(ret)
+
+    else:
+        ret = np.loadtxt(
+            f"{l_path[0]}/{filenames}.tsv", delimiter="\t", dtype=str
+        ).ravel()
+    for i in tqdm([0], desc=f"Exporting {filenames}.tsv", total=1):
+        list2tsv(ret.tolist(), f"{save_dir}/{filenames if alias is None else alias}.tsv")
