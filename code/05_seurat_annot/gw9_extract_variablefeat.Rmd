@@ -1,7 +1,7 @@
 ---
-title: "Manual Anntation on GW9"
+title: "Extract Variable Features on GW9"
 author: Yuji Okano
-date: August 24, 2022
+date: August 30, 2022
 output:
   md_document:
     variant: markdown_github
@@ -21,6 +21,11 @@ library(Seurat)
 library(patchwork)
 library(ggplot2)
 
+
+source("../tools/spongy_panda/export_gdcmatrix.R")
+
+data.id = "gw9"
+
 data <- readRDS("../../data/gse165388_processed/gw9_seuratobject.rds")
 ```
 
@@ -29,6 +34,26 @@ data <- readRDS("../../data/gse165388_processed/gw9_seuratobject.rds")
 all.genes <- rownames(data)
 data <- ScaleData(data, features = all.genes)
 ```
+
+```{r}
+data <- FindVariableFeatures(object = data)
+
+feat <- VariableFeatures(object = data)
+```
+
+## Export
+```{r}
+save_gdcmatrix(
+  GetAssayData(data)[feat, ],
+  file = paste0("./", data.id, "feat_matrix")
+)
+
+saveRDS(
+  data,
+  file = paste0("./", data.id, "feat_seurat_pbj.rds")
+)
+```
+
 
 ## PCA
 ```{r}
