@@ -83,7 +83,7 @@ dim(GetAssayData(data))
 
 ### Normalization
 ```{r}
-data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 10000)
+data <- NormalizeData(data, normalization.method = "LogNormalize", scale.factor = 1e6)
 ```
 
 ### Export Normalized (filtered) matrix
