@@ -40,6 +40,16 @@ data.id = "gw12"
 data <- readRDS("../../data/gse165388_processed/gw12_seuratobject.rds")
 ```
 
+### make difrectory to save outputs
+
+``` r
+dir.name <- "../../data/gse165388_variablefeat"
+
+if (! dir.exists(dir.name)) {
+  dir.create(dir.name)
+}
+```
+
 ## Data scaling (for PCA)
 
 ``` r
@@ -60,11 +70,11 @@ feat <- VariableFeatures(object = data)
 ``` r
 save_gdcmatrix(
   GetAssayData(data)[feat, ],
-  file = paste0("./", data.id, "feat_matrix")
+  file = paste0(dir.name, "/", data.id, "feat_matrix")
 )
 
 saveRDS(
   data,
-  file = paste0("./", data.id, "feat_seurat_pbj.rds")
+  file = paste0(dir.name, "/", data.id, "feat_seurat_pbj.rds")
 )
 ```
