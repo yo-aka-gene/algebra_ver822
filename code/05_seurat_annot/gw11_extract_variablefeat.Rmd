@@ -1,0 +1,54 @@
+---
+title: "Extract Variable Features on GW11"
+author: Yuji Okano
+date: August 31, 2022
+output:
+  md_document:
+    variant: markdown_github
+---
+
+# 05_manual_annot
+
+## Objectives
+
+1.  Manual Annotation via Seurat
+
+### load data and make seurat object
+
+```{r}
+library(dplyr)
+library(Seurat)
+library(patchwork)
+
+
+source("../tools/spongy_panda/export_gdcmatrix.R")
+
+data.id = "gw11"
+
+data <- readRDS("../../data/gse165388_processed/gw11_seuratobject.rds")
+```
+
+## Data scaling (for PCA)
+```{r}
+all.genes <- rownames(data)
+data <- ScaleData(data, features = all.genes)
+```
+
+```{r}
+data <- FindVariableFeatures(object = data)
+
+feat <- VariableFeatures(object = data)
+```
+
+## Export
+```{r}
+save_gdcmatrix(
+  GetAssayData(data)[feat, ],
+  file = paste0("./", data.id, "feat_matrix")
+)
+
+saveRDS(
+  data,
+  file = paste0("./", data.id, "feat_seurat_pbj.rds")
+)
+```
