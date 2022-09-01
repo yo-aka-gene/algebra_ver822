@@ -129,9 +129,9 @@ degs
 ### Assign Names
 ```{r}
 new.label <- c(
-  "NPC-1", "NPC-2", "LGE-1", "LGE-2", "MGE-1", "U-1",
-  "CGE-1", "NPC-3", "NPC-4", "EC-1", "U-2", "U-3",
-  "NPC", "RBC", "EC-2", "MG", "CGE", "U-4"
+  "Excitatory", "Excitatory", "LGE", "LGE", "MGE", "Unclassifiable",
+  "CGE", "NPC", "NPC", "EC", "Unclassifiable", "Unclassifiable",
+  "NPC", "RBC", "EC", "Microglia", "CGE", "Unclassifiable"
 )
 ```
 
@@ -146,8 +146,10 @@ DimPlot(data, reduction = "umap", label = TRUE, pt.size = 0.5)
 ```{r, include=FALSE}
 annot <- data.frame(Idents(data))
 colnames(annot) <- c("annot")
-levels(data)
 colnames(clusters_id) <- c("cluster_id")
+
+annot <- data.frame(c(clusters_id, annot))
+rownames(annot) <-  rownames(clusters_id)
 
 write.table(
   annot,

@@ -110,26 +110,26 @@ data <- RunUMAP(data, dims = 1:dim)
     ## To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
     ## This message will be shown once per session
 
-    ## 10:54:42 UMAP embedding parameters a = 0.9922 b = 1.112
+    ## 15:32:49 UMAP embedding parameters a = 0.9922 b = 1.112
 
-    ## 10:54:42 Read 12176 rows and found 169 numeric columns
+    ## 15:32:49 Read 12176 rows and found 169 numeric columns
 
-    ## 10:54:42 Using Annoy for neighbor search, n_neighbors = 30
+    ## 15:32:49 Using Annoy for neighbor search, n_neighbors = 30
 
-    ## 10:54:42 Building Annoy index with metric = cosine, n_trees = 50
+    ## 15:32:49 Building Annoy index with metric = cosine, n_trees = 50
 
     ## 0%   10   20   30   40   50   60   70   80   90   100%
 
     ## [----|----|----|----|----|----|----|----|----|----|
 
     ## **************************************************|
-    ## 10:54:46 Writing NN index file to temp file /tmp/Rtmp6ylqrD/file9bcf0ed015
-    ## 10:54:46 Searching Annoy index using 1 thread, search_k = 3000
-    ## 10:54:54 Annoy recall = 100%
-    ## 10:54:54 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
-    ## 10:54:55 Initializing from normalized Laplacian + noise (using irlba)
-    ## 10:54:56 Commencing optimization for 200 epochs, with 576664 positive edges
-    ## 10:55:04 Optimization finished
+    ## 15:32:53 Writing NN index file to temp file /tmp/RtmpNRpayy/filebd9631e733d
+    ## 15:32:53 Searching Annoy index using 1 thread, search_k = 3000
+    ## 15:33:02 Annoy recall = 100%
+    ## 15:33:02 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+    ## 15:33:03 Initializing from normalized Laplacian + noise (using irlba)
+    ## 15:33:04 Commencing optimization for 200 epochs, with 576664 positive edges
+    ## 15:33:12 Optimization finished
 
 ``` r
 DimPlot(data, reduction = "umap", label = T)
@@ -429,9 +429,9 @@ degs
 
 ``` r
 new.label <- c(
-  "NPC-1", "NPC-2", "LGE-1", "LGE-2", "MGE-1", "U-1",
-  "CGE-1", "NPC-3", "NPC-4", "EC-1", "U-2", "U-3",
-  "NPC", "RBC", "EC-2", "MG", "CGE", "U-4"
+  "Excitatory", "Excitatory", "LGE", "LGE", "MGE", "Unclassifiable",
+  "CGE", "NPC", "NPC", "EC", "Unclassifiable", "Unclassifiable",
+  "NPC", "RBC", "EC", "Microglia", "CGE", "Unclassifiable"
 )
 ```
 
