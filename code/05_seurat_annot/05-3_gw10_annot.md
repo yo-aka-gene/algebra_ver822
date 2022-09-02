@@ -110,26 +110,26 @@ data <- RunUMAP(data, dims = 1:dim)
     ## To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
     ## This message will be shown once per session
 
-    ## 16:55:57 UMAP embedding parameters a = 0.9922 b = 1.112
+    ## 10:38:01 UMAP embedding parameters a = 0.9922 b = 1.112
 
-    ## 16:55:57 Read 18183 rows and found 211 numeric columns
+    ## 10:38:01 Read 18183 rows and found 211 numeric columns
 
-    ## 16:55:57 Using Annoy for neighbor search, n_neighbors = 30
+    ## 10:38:01 Using Annoy for neighbor search, n_neighbors = 30
 
-    ## 16:55:57 Building Annoy index with metric = cosine, n_trees = 50
+    ## 10:38:01 Building Annoy index with metric = cosine, n_trees = 50
 
     ## 0%   10   20   30   40   50   60   70   80   90   100%
 
     ## [----|----|----|----|----|----|----|----|----|----|
 
     ## **************************************************|
-    ## 16:56:03 Writing NN index file to temp file /tmp/Rtmp6VfoL4/filec9951ddc751
-    ## 16:56:04 Searching Annoy index using 1 thread, search_k = 3000
-    ## 16:56:21 Annoy recall = 100%
-    ## 16:56:21 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
-    ## 16:56:22 Initializing from normalized Laplacian + noise (using irlba)
-    ## 16:56:23 Commencing optimization for 200 epochs, with 889658 positive edges
-    ## 16:56:36 Optimization finished
+    ## 10:38:08 Writing NN index file to temp file /tmp/RtmpUl3qIS/file1027335d7542
+    ## 10:38:08 Searching Annoy index using 1 thread, search_k = 3000
+    ## 10:38:26 Annoy recall = 100%
+    ## 10:38:28 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+    ## 10:38:29 Initializing from normalized Laplacian + noise (using irlba)
+    ## 10:38:30 Commencing optimization for 200 epochs, with 889658 positive edges
+    ## 10:38:42 Optimization finished
 
 ``` r
 DimPlot(data, reduction = "umap", label = T)
@@ -419,7 +419,7 @@ degs
 new.label <- c(
   "NPC", "CGE", "Excitatory", "MGE", "NPC", "MGE",
   "LGE", "Unclassifiable", "NPC", "LGE", "NPC", "Unclassifiable",
-  "RBC", "OPC", "Microglia", "EC", "Unclassifiable"
+  "RBC", "OPC", "Microglia", "Endothelial", "Unclassifiable"
 )
 ```
 

@@ -131,7 +131,7 @@ degs
 new.label <- c(
   "NPC", "CGE", "Excitatory", "MGE", "NPC", "MGE",
   "LGE", "Unclassifiable", "NPC", "LGE", "NPC", "Unclassifiable",
-  "RBC", "OPC", "Microglia", "EC", "Unclassifiable"
+  "RBC", "OPC", "Microglia", "Endothelial", "Unclassifiable"
 )
 ```
 
