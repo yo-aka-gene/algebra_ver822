@@ -1,0 +1,63 @@
+---
+title: "Extract Variable Features on M1_10x"
+author: Yuji Okano
+date: September 2, 2022
+output:
+  md_document:
+    variant: markdown_github
+---
+
+# 05_manual_annot
+
+## Objectives
+
+1.  Manual Annotation via Seurat
+
+### load data and make seurat object
+
+```{r}
+library(dplyr)
+library(Seurat)
+library(patchwork)
+
+
+source("../tools/spongy_panda/export_gdcmatrix.R")
+
+data.id = "m1_10x"
+
+data <- readRDS("../../data/m1_10x_processed/m1_10x_seuratobject.rds")
+```
+
+### make difrectory to save outputs
+```{r}
+dir.name <- "../../data/m1_10x_variablefeat"
+
+if (! dir.exists(dir.name)) {
+  dir.create(dir.name)
+}
+```
+
+## Data scaling (for PCA)
+```{r}
+all.genes <- rownames(data)
+data <- ScaleData(data, features = all.genes)
+```
+
+```{r}
+data <- FindVariableFeatures(object = data)
+
+feat <- VariableFeatures(object = data)
+```
+
+## Export
+```{r}
+save_gdcmatrix(
+  GetAssayData(data)[feat, ],
+  file = paste0(dir.name, "/", data.id, "feat_matrix")
+)
+
+saveRDS(
+  data,
+  file = paste0(dir.name, "/", data.id, "feat_seurat_pbj.rds")
+)
+```

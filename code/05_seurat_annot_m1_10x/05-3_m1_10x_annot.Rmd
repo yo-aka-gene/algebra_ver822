@@ -1,0 +1,148 @@
+---
+title: "Manual Annotation on M1_10x"
+author: Yuji Okano
+date: September 2, 2022
+output:
+  md_document:
+    variant: markdown_github
+---
+
+# 05-3_manual_annot
+
+## Objectives
+
+1.  Manual Annotation via Seurat
+
+### load data and make seurat object
+
+```{r}
+library(dplyr)
+library(jsonlite)
+library(Seurat)
+library(patchwork)
+
+
+source("../tools/spongy_panda/export_gdcmatrix.R")
+
+data.id <- "m1_10x"
+data <- readRDS(paste0("../../data/m1_10x_variablefeat/", data.id, "feat_seurat_pbj.rds"))
+
+dim <- as.integer(read_json("../../out/m1_10x/05_seurat_annot/dimensionality.json", simplifyVector = TRUE)[data.id])
+```
+
+### make difrectory to save outputs
+```{r}
+dir.name <- "../../data/m1_10x_annot"
+
+if (! dir.exists(dir.name)) {
+  dir.create(dir.name)
+}
+```
+
+## PCA
+```{r}
+all.genes <- rownames(data)
+feat <- VariableFeatures(object = data)
+
+data <- RunPCA(
+  data,
+  features = feat,
+  verbose = FALSE,
+  seed.use = 0,
+  npcs=length(feat),
+  approx=FALSE
+)
+```
+
+## Clustering
+```{r}
+data <- FindNeighbors(data, dims = 1:dim)
+data <- FindClusters(data, resolution = 0.8)
+```
+
+### Get cluster id
+```{r}
+clusters_id <- data.frame(Idents(data))
+```
+
+## Embedding into Manifolds
+### UMAP
+```{r}
+data <- RunUMAP(data, dims = 1:dim)
+
+DimPlot(data, reduction = "umap", label = T)
+```
+
+## Find DEG
+```{r}
+markers <- FindAllMarkers(data, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+```
+
+```{r}
+n <- 10
+
+degs <- markers %>%
+  group_by(cluster) %>%
+  slice_max(n = n, order_by = avg_log2FC) %>%
+  data.frame()
+
+write.csv(
+  degs, 
+  paste0(dir.name, "/", data.id, "_degs_top", n, ".csv"),
+  quote = F
+  )
+```
+
+### choose one key gene per cluster
+```{r}
+deg.list <- sapply(unique(degs$cluster), function(idx) degs[degs$cluster==idx, ]$gene[1])
+```
+
+
+## Visualization
+
+```{r, fig.height=24, fig.width=24, dpi=80, out.width=24, out.height=24}
+VlnPlot(data, features = deg.list)
+```
+
+- scatter plot
+
+```{r, fig.height=24, fig.width=24, dpi=80, out.width=24, out.height=24}
+FeaturePlot(data, features = deg.list, label=T)
+```
+
+- heatmap
+
+```{r, fig.height=20, fig.width=30, dpi=80, out.width=30, out.height=20}
+markers %>%
+    group_by(cluster) %>%
+    top_n(n = 3, wt = avg_log2FC) -> top
+DoHeatmap(data, features = top$gene)
+```
+
+- After these procedure, clusters are **manually** annotated
+
+```{r}
+degs
+```
+
+### Export Clusters 
+```{r, include=FALSE}
+colnames(clusters_id) <- c("cluster_id")
+
+write.table(
+  clusters_id,
+  paste0(dir.name, "/", data.id, "_clusters.csv"),
+  append = F,
+  sep = ",", 
+  row.names = T,
+  quote = F
+)
+```
+
+
+## Export Data
+```{r}
+saveRDS(Embeddings(data, reduction = "pca")[, 1:dim], file = paste0(dir.name, "/", data.id, "pca.rds"))
+saveRDS(Embeddings(data, reduction = "umap"), file = paste0(dir.name, "/", data.id, "umap.rds"))
+```

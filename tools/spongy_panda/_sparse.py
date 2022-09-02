@@ -467,14 +467,22 @@ class _Locator():
             f"invalid subscription: {item}"
 
         item = (
-            [int(np.where(np.array(self.index)==v)[0]) for v in item[0]],
-            [int(np.where(np.array(self.index)==v)[0]) for v in item[1]]
+            [
+                int(
+                    np.where(np.array(self.index)==v)[0]
+                ) for v in item[0]
+            ] if not isinstance(item[0], slice) else item[0],
+            [
+                int(
+                    np.where(np.array(self.columns)==v)[0]
+                ) for v in item[1]
+            ] if not isinstance(item[1], slice) else item[1]
         )
 
         return SparseDF(
             sp.csc_matrix(self.values)[item],
-            index=self.index[item[0]],
-            columns=self.columns[item[1]]
+            index=np.array(self.index)[item[0]].tolist(),
+            columns=np.array(self.columns)[item[1]].tolist()
         )
 
 
@@ -498,6 +506,6 @@ class _IdLocator():
 
         return SparseDF(
             sp.csc_matrix(self.values)[item],
-            index=self.index[item[0]],
-            columns=self.columns[item[1]]
+            index=np.array(self.index)[item[0]].tolist(),
+            columns=np.array(self.columns)[item[1]].tolist()
         )
