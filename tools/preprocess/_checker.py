@@ -7,5 +7,5 @@ def find(
 ) -> List[str]:
     ret = []
     for f in feat_list:
-        ret += [feat] if (f in whole_list) != show_missing else []
+        ret += [f] if (f in whole_list) != show_missing else []
     return ret
