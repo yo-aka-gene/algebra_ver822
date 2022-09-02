@@ -81,7 +81,7 @@ cns_subtype_markers = [
     "HBB", "HBM", "HBA1", "HBA2",
 
     # Endothelial
-    "IGFBP7", "PCAM1",
+    "IGFBP7", "PECAM1",
 
     # Epithelial
     "KRT14", "KRT16", "KRT17", "EMX2"
