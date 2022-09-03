@@ -47,7 +47,7 @@ cns_subtype_markers = [
     "PDGFRA",
 
     # Microglial markers
-    "SPP1",
+    "SPP1", "TMEM119", "ITGAM", "PTPRC", "AIF1",
 
     # neuron markers
     "RBFOX3", "TBR1", "SOX5", "DCX", "BCL11B",
