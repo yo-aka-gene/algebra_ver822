@@ -82,7 +82,7 @@ class FactorAnalyzer():
 
     def heatmap(self, ax: None, condition: tuple = None, **kwargs):
         if ax is None:
-            fig, ax = plt.subplots(2, 1) if show_diff else plt.subplots()
+            fig, ax = plt.subplots()
             
             fig_id = (
                 "heatmap",
@@ -114,7 +114,7 @@ class FactorAnalyzer():
 
     def plot_var(self, ax: None, condition: tuple = None, **kwargs):
         if ax is None:
-            fig, ax = plt.subplots(2, 1) if show_diff else plt.subplots()
+            fig, ax = plt.subplots()
             
             fig_id = (
                 "plot_var",

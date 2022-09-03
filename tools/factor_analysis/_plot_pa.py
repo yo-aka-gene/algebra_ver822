@@ -45,8 +45,8 @@ def plot_parallel_analysis(
     )
     
     labels = {
-        "norm": "null model$\sim \mathcal{N}(\mathbf{0}, I_n)$: ",
-        "perm": "random permutation: "
+        "norm": "null model$\sim \mathcal{N}(\mathbf{0}, I_n)$",
+        "perm": "random permutation"
     }
     
     if nullmodel == "min(norm,perm)":
@@ -94,7 +94,7 @@ def plot_parallel_analysis(
         ax.plot(
             1 + np.arange(len(evn)), evn,
             color=c, linewidth=lw,
-            label=labels[nullmodel] + f"{len(ev[ev > evn])} factors"
+            label=labels[nullmodel]
         )
         
     ax.legend()
