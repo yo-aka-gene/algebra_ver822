@@ -126,12 +126,35 @@ DoHeatmap(data, features = top$gene)
 degs
 ```
 
+### Assign Names
+```{r}
+new.label <- c(
+  "Oligodendrocyte", "MGE", "Unclassifiable", "MGE", "Astrocyte", "CGE",
+  "Unclassifiable", "Unclassifiable", "Unclassifiable", "MGE", "Unclassifiable", "Unclassifiable",
+  "Unclassifiable", "Astrocyte", "Unclassifiable", "Unclassifiable", "CGE", "CGE",
+  "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable",
+  "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable"
+)
+```
+
+### Visualization
+```{r}
+names(new.label) <- levels(data)
+data <- RenameIdents(data, new.label)
+DimPlot(data, reduction = "umap", label = TRUE, pt.size = 0.5)
+```
+
 ### Export Clusters 
 ```{r, include=FALSE}
+annot <- data.frame(Idents(data))
+colnames(annot) <- c("annot")
 colnames(clusters_id) <- c("cluster_id")
 
+annot <- data.frame(clusters_id, annot)
+rownames(annot) <-  rownames(clusters_id)
+
 write.table(
-  clusters_id,
+  annot,
   paste0(dir.name, "/", data.id, "_clusters.csv"),
   append = F,
   sep = ",", 

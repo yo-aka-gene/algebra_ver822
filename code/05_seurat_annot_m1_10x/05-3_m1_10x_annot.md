@@ -110,29 +110,29 @@ data <- RunUMAP(data, dims = 1:dim)
     ## To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
     ## This message will be shown once per session
 
-    ## 00:10:04 UMAP embedding parameters a = 0.9922 b = 1.112
+    ## 06:16:37 UMAP embedding parameters a = 0.9922 b = 1.112
 
-    ## 00:10:04 Read 12015 rows and found 51 numeric columns
+    ## 06:16:37 Read 12015 rows and found 51 numeric columns
 
-    ## 00:10:04 Using Annoy for neighbor search, n_neighbors = 30
+    ## 06:16:37 Using Annoy for neighbor search, n_neighbors = 30
 
-    ## 00:10:04 Building Annoy index with metric = cosine, n_trees = 50
+    ## 06:16:37 Building Annoy index with metric = cosine, n_trees = 50
 
     ## 0%   10   20   30   40   50   60   70   80   90   100%
 
     ## [----|----|----|----|----|----|----|----|----|----|
 
     ## **************************************************|
-    ## 00:10:06 Writing NN index file to temp file /tmp/RtmpBASL2h/file145c47958adf
-    ## 00:10:06 Searching Annoy index using 1 thread, search_k = 3000
-    ## 00:10:11 Annoy recall = 100%
-    ## 00:10:11 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
-    ## 00:10:12 Found 2 connected components, falling back to 'spca' initialization with init_sdev = 1
-    ## 00:10:12 Using 'irlba' for PCA
-    ## 00:10:12 PCA: 2 components explained 45.31% variance
-    ## 00:10:12 Scaling init to sdev = 1
-    ## 00:10:12 Commencing optimization for 200 epochs, with 507436 positive edges
-    ## 00:10:20 Optimization finished
+    ## 06:16:39 Writing NN index file to temp file /tmp/RtmpW8RhE1/file1f47175f064
+    ## 06:16:39 Searching Annoy index using 1 thread, search_k = 3000
+    ## 06:16:44 Annoy recall = 100%
+    ## 06:16:44 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+    ## 06:16:45 Found 2 connected components, falling back to 'spca' initialization with init_sdev = 1
+    ## 06:16:45 Using 'irlba' for PCA
+    ## 06:16:45 PCA: 2 components explained 45.31% variance
+    ## 06:16:45 Scaling init to sdev = 1
+    ## 06:16:45 Commencing optimization for 200 epochs, with 507436 positive edges
+    ## 06:16:53 Optimization finished
 
 ``` r
 DimPlot(data, reduction = "umap", label = T)
@@ -559,6 +559,28 @@ degs
     ## 288  6.897446e-50   3.755825 0.923 0.171  2.098479e-45      28     ARHGAP29
     ## 289  1.164299e-90   3.753759 0.923 0.082  3.542263e-86      28         UACA
     ## 290  0.000000e+00   3.709242 0.821 0.014  0.000000e+00      28        ITIH5
+
+### Assign Names
+
+``` r
+new.label <- c(
+  "Oligodendrocyte", "MGE", "Unclassifiable", "MGE", "Astrocyte", "CGE",
+  "Unclassifiable", "Unclassifiable", "Unclassifiable", "MGE", "Unclassifiable", "Unclassifiable",
+  "Unclassifiable", "Astrocyte", "Unclassifiable", "Unclassifiable", "CGE", "CGE",
+  "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable",
+  "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable", "Unclassifiable"
+)
+```
+
+### Visualization
+
+``` r
+names(new.label) <- levels(data)
+data <- RenameIdents(data, new.label)
+DimPlot(data, reduction = "umap", label = TRUE, pt.size = 0.5)
+```
+
+![](05-3_m1_10x_annot_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
 ### Export Clusters
 
