@@ -35,7 +35,7 @@
 ---
 ## Copyright of the dataset
 1. Allen Institute for Brain Science
-    - human primary mortor cortex: [https://portal.brain.map.org/atlases-and-data/rnaseq/human-m1-10x](https://portal.brain.map.org/atlases-and-data/rnaseq/human-m1-10x)
+    - human primary mortor cortex: [https://portal.brain-map.org/atlases-and-data/rnaseq/human-m1-10x](https://portal.brain-map.org/atlases-and-data/rnaseq/human-m1-10x)
     - run `make m1_10x` or `make all-data` or `make init` to install this data.
     - For the sake of the data size, we seplit the original files (make command includes this process as well)
 2. HuaQiao University (GSE165388)
