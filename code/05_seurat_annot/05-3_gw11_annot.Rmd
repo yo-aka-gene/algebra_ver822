@@ -129,7 +129,7 @@ degs
 ### Assign Names
 ```{r}
 new.label <- c(
-  "Excitatory", "Unclassifiable", "Unclassifiable", "MGE", "LGE", "NPC",
+  "Excitatory", "NPC", "Unclassifiable", "MGE", "LGE", "NPC",
   "CGE", "LGE", "Excitatory", "NPC", "RBC", "Microglia",
   "NPC", "NPC", "Epithelial", "OPC", "Unclassifiable", "Unclassifiable"
 )
