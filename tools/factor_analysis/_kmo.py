@@ -12,7 +12,8 @@ def kmo_viz(
     data: pd.core.frame.DataFrame,
     ax: Any = None,
     criteria: float = 0.6,
-    vline: bool = False,
+    line: bool = False,
+    landscape: bool = False,
     **kwargs
 ) -> None:
     if ax is None:
@@ -27,7 +28,7 @@ def kmo_viz(
     sat = kwarg_mgr(kwargs, "saturation", 0.4)
     edgecolor = kwarg_mgr(kwargs, "edgecolor", ".5")
     digit = kwarg_mgr(kwargs, "round", 3)
-    xlabel = kwarg_mgr(kwargs, "xlabel", "MSA")
+    label = kwarg_mgr(kwargs, "xlabel", "MSA")
     title = kwarg_mgr(
         kwargs,
         "title", 
@@ -42,19 +43,30 @@ def kmo_viz(
     color, palette = color_kwargs["color"], color_kwargs["palette"]
     
     sns.barplot(
-    x=vsep,
-    y=data.columns, orient='h', ax=ax,
+    x=data.columns if landscape else vsep,
+    y=vsep if landscape else data.columns,
+    orient='v' if landscape else 'h', ax=ax,
     palette=palette,
     color=color,
     edgecolor=edgecolor
     )
 
-    ymin, ymax = ax.get_ylim()
+    vmin, vmax = ax.get_xlim() if landscape else ax.get_ylim()
     
-    if vline:
-        ls = kwarg_mgr(kwargs, "linestyles", "--")
-        lw = kwarg_mgr(kwargs, "linewidth", 1)
-        lc = kwarg_mgr(kwargs, "linecolor", "k")
-        ax.vlines(criteria, ymin, ymax, linestyles=ls, color=lc, linewidth=lw)
+    if not landscape:
+        if line:
+            ls = kwarg_mgr(kwargs, "linestyles", "--")
+            lw = kwarg_mgr(kwargs, "linewidth", 1)
+            lc = kwarg_mgr(kwargs, "linecolor", "k")
+            ax.vlines(criteria, vmin, vmax, linestyles=ls, color=lc, linewidth=lw)
+            
+        ax.set(xlabel=label, ylim=[vmin, vmax], title=f"{title}{vall.round(digit)}")
     
-    ax.set(xlabel=xlabel, ylim=[ymin, ymax], title=f"{title}{vall.round(digit)}")
+    else:
+        if line:
+            ls = kwarg_mgr(kwargs, "linestyles", "--")
+            lw = kwarg_mgr(kwargs, "linewidth", 1)
+            lc = kwarg_mgr(kwargs, "linecolor", "k")
+            ax.hlines(criteria, vmin, vmax, linestyles=ls, color=lc, linewidth=lw)
+            
+        ax.set(ylabel=label, xlim=[vmin, vmax], title=f"{title}{vall.round(digit)}")
