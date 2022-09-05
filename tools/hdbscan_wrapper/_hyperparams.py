@@ -112,12 +112,12 @@ class _Gridsearch():
         }
         return [
             dict(
-                x=x,
-                y=y,
+                X=x,
+                Y=y,
                 args=dict(
-                    x=dict_vals[x],
-                    y=dict_vals[y],
-                    z=self.result
+                    X=dict_vals[x],
+                    Y=dict_vals[y],
+                    Z=self.result
                 )
             ) for x, y in combinations(self.search_params, 2)
         ]
