@@ -119,5 +119,5 @@ class _Gridsearch():
                     y=dict_vals[y],
                     z=self.result
                 )
-            ) for x, y in combinations(self.search_params)
+            ) for x, y in combinations(self.search_params, 2)
         ]
