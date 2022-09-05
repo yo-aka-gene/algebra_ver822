@@ -1,4 +1,4 @@
-from ._preference import fig_kwarg, cns_markers, cns_subtype_markers, custom_bwr
+from ._preference import fig_kwarg, cns_markers, cns_subtype_markers, custom_bwr, fa_preset
 from ._utils import kwarg_mgr, sns_color_mgr
 from ._pcp import pcp
 from ._seurat_cmap import seurat
@@ -10,6 +10,7 @@ __all__ = [
     "cns_markers",
     "cns_subtype_markers",
     "custom_bwr",
+    "fa_preset",
     "kwarg_mgr",
     "sns_color_mgr",
     "pcp",

@@ -85,7 +85,26 @@ cns_subtype_markers = [
 
     # Epithelial
     "KRT14", "KRT16", "KRT17", "EMX2"
+]
 
+fa_preset = [
+    "SLC1A2", "VIM", "GFAP",
+    
+    "OLIG2", "PDGFRA",
+    
+    "AIF1", "SPP1",
+    
+    "SOX5", "DCX", "TUBB3",
+    
+    "NEUROD1", "NEUROD6", "GRIN2B",
+    
+    "ISL1", "EBF1",
+    
+    "MAF", "SOX6", "ERBB4",
+    
+    "HES1", "FABP7", "DLX2", "ASCL1",
+    
+    "NES", "SOX1", "SOX2"
 ]
 
 def custom_bwr(
