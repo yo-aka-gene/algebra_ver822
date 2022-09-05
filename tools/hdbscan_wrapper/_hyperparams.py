@@ -97,7 +97,7 @@ class _Gridsearch():
     def best_params(self, eval_func: Callable = np.argmax):
         lst_pos = [sp.ravel()[eval_func(self.result)] for sp in self.space]
         return {
-            key: v for key, v in zip(
+            key: int(v) for key, v in zip(
                 self.search_params,
                 lst_pos
             )
