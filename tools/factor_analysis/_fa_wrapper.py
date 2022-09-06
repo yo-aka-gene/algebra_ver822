@@ -218,7 +218,7 @@ class AutoFactorAnalyzer():
         self.uniqueness = model.uniqueness
         self.uniquenesses = model.uniquenesses
         self.data = model.data
-        self.n_f = model.n_f
+        self.n_f = list(model.results.keys())[-1][0]
         self.figs = model.figs
     
     def __call__(self):
@@ -235,7 +235,7 @@ class AutoFactorAnalyzer():
         self.uniqueness = self._model_.uniqueness
         self.uniquenesses = self._model_.uniquenesses
         self.data = self._model_.data
-        self.n_f = self._model_.n_f
+        self.n_f = list(self._model_.results.keys())[-1][0]
         self.figs = self._model_.figs
 
     def rotate(
