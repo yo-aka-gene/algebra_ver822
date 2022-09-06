@@ -50,7 +50,8 @@ class PCGRN():
         )
         
         for i, v in combinations(df.columns, 2):
-            df.loc[i, v] = 1 if (i, v) in self.edges else 0
+            df.loc[i, v] = 1 if (i, v) in self.edges or (v, i) in self.edges \
+                else 0
         
         return df
     
