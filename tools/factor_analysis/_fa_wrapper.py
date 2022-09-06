@@ -220,8 +220,9 @@ class AutoFactorAnalyzer():
         self.data = model.data
         self.n_f = model.n_f
         self.figs = model.figs
-        
-        return model
+    
+    def __call__(self):
+        return self._model_
     
 
     def overwrite(self):
