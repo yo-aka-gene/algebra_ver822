@@ -87,7 +87,7 @@ cns_subtype_markers = [
     "KRT14", "KRT16", "KRT17", "EMX2"
 ]
 
-fa_preset = [
+minimal_preset = [
     "SLC1A2", "VIM", "GFAP",
     
     "OLIG2", "PDGFRA",
@@ -105,6 +105,54 @@ fa_preset = [
     "HES1", "FABP7", "DLX2", "ASCL1",
     
     "NES", "SOX1", "SOX2"
+]
+
+fa_preset = [
+    # glia markers
+    "SLC1A2", "VIM",
+
+    # astrocyte markers
+    "GFAP", "S100B", "ALDH1L1",
+
+    # oligodendrocyte markers
+    "OLIG2", "CNP", "CA2",
+
+    # OPC mekrers
+    "PDGFRA",
+
+    # Microglial markers
+    "SPP1", "TMEM119", "AIF1",
+
+    # neuron markers
+    "RBFOX3", "TBR1", "SOX5", "DCX", "TUBB3",
+
+    # CGE markers
+    "CALB2", "RELN", "NR2F1", "NR2F2", "VIP",
+
+    # Excitatory Neuron markers
+    "NEUROD1", "NEUROD2", "NEUROD6", "GRIN2B",
+
+    # LGE markers
+    "SIX3", "ISL1", "EBF1",
+
+    # MGE
+    "LHX6", "MAF", "SST", "ERBB4", "SOX6",
+    "NKX2-1",
+
+    # NPC
+    "HES1", "HES5", "TYMS", "FABP7", "EOMES",
+    "NCAM1", "TTYH1", "DLX2", "GAD2",
+    "ASCL1", "PROX1", 
+
+    # NSC
+    "PAX6", "NES", "SOX1", "SOX2", "MCM2",
+    "MKI67", "FOXO3",
+
+    # RBC
+    "HBB", "HBM", "HBA1", "HBA2",
+
+    # Endothelial
+    "IGFBP7", "PECAM1",
 ]
 
 def custom_bwr(
