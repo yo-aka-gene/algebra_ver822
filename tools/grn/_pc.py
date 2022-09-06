@@ -12,9 +12,12 @@ from pgmpy.estimators import PC
 class PCGRN():
     def __init__(
         self,
-        data: pd.core.frame.DataFrame
+        data: pd.core.frame.DataFrame,
+        n: int = None,
+        random_state: int = 0
     ):
-        self.data = data
+        np.random.seed(random_state)
+        self.data = data if n is None else data.sample(n=n)
     
     def estimate(
         self,
