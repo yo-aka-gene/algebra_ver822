@@ -3,7 +3,7 @@ from ._null_models import random_permutation, null_model
 from ._kmo import kmo_viz
 from ._pa import parallel_analysis
 from ._plot_pa import plot_parallel_analysis
-from ._fa_wrapper import FactorAnalyzer
+from ._fa_wrapper import FactorAnalyzer, AutoFactorAnalyzer
 
 __all__ = [
     "eigvals",
@@ -12,5 +12,6 @@ __all__ = [
     "kmo_viz",
     "parallel_analysis",
     "plot_parallel_analysis",
-    "FactorAnalyzer"
+    "FactorAnalyzer",
+    "AutoFactorAnalyzer"
 ]

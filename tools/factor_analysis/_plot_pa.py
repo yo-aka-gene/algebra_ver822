@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from tools.figure import custom_bwr, kwarg_mgr
+from tools.figure import kwarg_mgr
 from ._eigenvals import eigvals
 from ._null_models import null_model
 from ._pa import parallel_analysis
