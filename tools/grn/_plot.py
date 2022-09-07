@@ -19,13 +19,14 @@ def annot_plot(
     
     if ax is None:
         fig, ax = plt.subplots()
+
+    linecolor = kwarg_mgr(kwargs, "linecolor", ".8")
+    s = kwarg_mgr(kwargs, "s", 5)
     
-    ax.scatter(0, 0, color=dict_c_sbj[key_sbj])
+    ax.scatter(0, 0, color=dict_c_sbj[key_sbj], s=s)
     ax.annotate(key_sbj, (0, 0))
     
     dist = np.array([d_asterisk(dict_sbj[key_sbj], dict_obj[k]) for k in dict_obj])
-    
-    linecolor = kwarg_mgr(kwargs, "linecolor", ".8")
     
     t = np.linspace(0, 2 * np.pi, num=len(dict_obj) + 2)
     x = np.cos(t)
@@ -33,7 +34,7 @@ def annot_plot(
     u = np.linspace(0, 2 * np.pi, num=1000)
     
     for i, v in enumerate(dist):
-        ax.scatter(v * x[i + 1], v * y[i + 1], color=dict_c_obj[list(dict_obj.keys())[i]])
+        ax.scatter(v * x[i + 1], v * y[i + 1], color=dict_c_obj[list(dict_obj.keys())[i]], s=s)
         ax.annotate(list(dict_obj.keys())[i], (v * x[i  +1], v * y[i + 1]), ((v + .01) * x[i + 1], (v + .01) * y[i + 1]))
         ax.plot(v * np.cos(u), v * np.sin(u), color=linecolor, zorder=0)
     
