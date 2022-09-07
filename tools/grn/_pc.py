@@ -17,7 +17,7 @@ class PCGRN():
         random_state: int = 0
     ):
         np.random.seed(random_state)
-        self.data = data if n is None else data.sample(n=n)
+        self.data = data if n is None else data.sample(n=min(n, len(data)))
     
     def estimate(
         self,
