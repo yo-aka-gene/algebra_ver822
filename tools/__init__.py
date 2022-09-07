@@ -6,6 +6,7 @@ from . import spongy_panda
 from . import random
 from . import r
 from . import hdbscan_wrapper
+from . import grn
 
 __all__ = [
     "preprocess",
@@ -15,5 +16,6 @@ __all__ = [
     "spongy_panda",
     "random",
     "r",
-    "hdbscan_wrapper"
+    "hdbscan_wrapper",
+    "grn"
 ]
