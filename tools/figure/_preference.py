@@ -88,23 +88,9 @@ cns_subtype_markers = [
 ]
 
 minimal_preset = [
-    "SLC1A2", "VIM", "GFAP",
-    
-    "OLIG2", "PDGFRA",
-    
-    "AIF1", "SPP1",
-    
-    "SOX5", "DCX", "TUBB3",
-    
-    "NEUROD1", "NEUROD6", "GRIN2B",
-    
-    "ISL1", "EBF1",
-    
-    "MAF", "SOX6", "ERBB4",
-    
-    "HES1", "FABP7", "DLX2", "ASCL1",
-    
-    "NES", "SOX1", "SOX2"
+    "AQP4", "GFAP", "GJA1", "PDGFRA", "RBFOX3",
+    "SATB2", "CUX2", "VIP", "GRIN2B", "SOX6",
+    "NCAM1", "GAD2"
 ]
 
 fa_preset = [
