@@ -2,7 +2,6 @@
 <div align="center">
 <img src="./doc_img/graphical_abstract.PNG" alt="graphical abstract" width="300" height="300" title="graphical abstract">
 </div>
-- Analysis codes for "A set-theoretic definition of cell types with an algebraic structure on gene regulatory networks and application in annotation of RNA-seq data"
 
 ## How to start
 ### Initial settings
@@ -32,6 +31,7 @@
     - CPUs: 8
     - Memory: 24.00 GB
     - Swap: 2 GB
+- **Note**: the author used MacBook Pro(15inch, 2019)
 ---
 ## Copyright of the dataset
 1. Allen Institute for Brain Science
@@ -50,4 +50,3 @@
 ---
 ## For developers
 - please use `pip` instead of `conda` for installing Python packages
-- run `make write-lib` to export dependencies (both Python and R)
