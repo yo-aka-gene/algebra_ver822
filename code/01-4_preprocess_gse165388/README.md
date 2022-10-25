@@ -7,10 +7,10 @@ graph LR
     C("GW11")=="preprocess"==> G("GW11")
     D("GW12")=="preprocess"==> H("GW12")
 
-    E-."conjugated".->I(("Comparison of DEG"))
-    F-."conjugated".->I
-    G-."conjugated".->I
-    H-."conjugated".->I
+    E-..->I(("Comparison of DEGs"))
+    F-..->I
+    G-..->I
+    H-..->I
 ```
 ## Overview of scripts
 - GW9: [01_preprocess_GSE165388_gw9.md](./01_preprocess_GSE165388_gw9.md)
