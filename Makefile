@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc all-data gse m1_10x lib lib-py lib-r write-lib init fmt_10x help
+.PHONY: clean clean-build clean-pyc all-data gse m1_10x lib lib-py lib-r write-lib init fmt_10x help start-py start-r start stop-py stop-r stop terminate reboot
 .DEFAULT_GOAL := help
 
 clean: clean-build clean-pyc
@@ -55,4 +55,27 @@ init: ## set up essentials
 	make lib
 
 help: ## user guide
+	open ./Makefile
 
+start-py: ## start docker container for python
+	docker start algebra_ver822-jupyterlab-1
+	open http://localhost:8080
+
+start-r: ## start docker container for r
+	docker start algebra_ver822-rstudio-1
+	open http://localhost:8787
+
+start: start-py start-r
+
+stop-py: ## stop docker container for python
+	docker stop algebra_ver822-jupyterlab-1
+
+stop-r: ## stop docker container for r
+	docker stop algebra_ver822-rstudio-1
+
+stop: stop-py stop-r
+
+terminate: ## remove docker container
+	docker compose down
+
+reboot: terminate init
