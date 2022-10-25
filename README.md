@@ -7,23 +7,30 @@
 ### Initial settings
 1. clone this repository with `git clone git@github.com:yo-aka-gene/algebra_ver822.git`
 2. install Docker to your local env
-3. swich your working dir to `/algebra-ver822`
+3. swich your working dir to `/algebra_ver822`
 4. run `make init`
 
 ### Run Python codes
-`*.ipynb` files are indexed with numbers. Please follow the numbering.<br>
+You can run python codes in jupyterlab virtual environment. Run `make start-py` to start the docker container for jupyterlab; otherwise follow the instructions below. Note that `*.ipynb` files are indexed with numbers. Please follow the numbering.<br>
 ***Notes***: some codes require that R scripts already done. Please check the description.
 1. run `docker start algebra_ver822-jupyterlab-1`
 2. access `localhost:8080` via your local browser (edit `docker-compose.yml` to use different port)
 3. run codes in jupyter notebook environment
 4. run `make lib-py` or `make lib` to install packages in dependencies (preinstalled with `make init` command)
+5. you can stop the virtual computer by running `make stop-py` code in your local env (run `make stop` to stop all docker containers regarding this project).
 
 ### Run R codes
+You can run r codes in rstudio virtual environment. Run `make start-r` to start the docker container for rstudio; otherwise follow the instructions below. Note that `*.Rmd` files are indexed with numbers. Please follow the numbering.<br>
 ***Notes***: some packages are only installed rstuio environment. Please use `algebra_ver822-rstudio-1` container.
 1. run `docker start algebra_ver822-rstudio-1`
 2. access `localhost:8787` via your local browser (edit `docker-compose.yml` to use different port)
 3. run codes in rstudio environment
 4. run `make lib-r` or `make lib` to install packages in dependencies (preinstalled with `make init` command)
+5. you can stop the virtual computer by running `make stop-r` code in your local env (run `make stop` to stop all docker containers regarding this project).
+
+### Troubleshooting
+- when you want to remove the docker containers, run `make terminate` in your local environment.
+- when you renew (remove and rebuild) the docker containers, run `make reboot` in your local environment.
 ---
 ## Preference of Docker in local environment
 - Resource
