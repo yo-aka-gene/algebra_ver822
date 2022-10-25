@@ -17,7 +17,7 @@ You can run python codes in jupyterlab virtual environment. Run `make start-py` 
 ***Notes***: some codes require that R scripts already done. Please check the description.
 1. run `docker start algebra_ver822-jupyterlab-1`
 2. access `localhost:8080` via your local browser (edit `docker-compose.yml` to use different port)
-3. run codes in jupyter notebook environment
+3. run codes interactively with `*.ipynb` files in jupyter notebook environment
 4. run `make lib-py` or `make lib` to install packages in dependencies (preinstalled with `make init` command)
 5. you can stop the virtual computer by running `make stop-py` code in your local env (run `make stop` to stop all docker containers regarding this project).
 
@@ -26,7 +26,7 @@ You can run r codes in rstudio virtual environment. Run `make start-r` to start 
 ***Notes***: some packages are only installed rstuio environment. Please use `algebra_ver822-rstudio-1` container.
 1. run `docker start algebra_ver822-rstudio-1`
 2. access `localhost:8787` via your local browser (edit `docker-compose.yml` to use different port)
-3. run codes in rstudio environment
+3. run codes interactively with `*.Rmd` files in rstudio environment (or you can check the overview of the analysis as `*.md` files)
 4. run `make lib-r` or `make lib` to install packages in dependencies (preinstalled with `make init` command)
 5. you can stop the virtual computer by running `make stop-r` code in your local env (run `make stop` to stop all docker containers regarding this project).
 
