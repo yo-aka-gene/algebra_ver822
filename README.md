@@ -8,8 +8,7 @@
 1. clone this repository with `git clone git@github.com:yo-aka-gene/algebra_ver822.git`
 2. install Docker to your local env
 3. swich your working dir to `/algebra-ver822`
-4. run `docker compose up -d`
-5. run `make init`
+4. run `make init`
 
 ### Run Python codes
 `*.ipynb` files are indexed with numbers. Please follow the numbering.<br>

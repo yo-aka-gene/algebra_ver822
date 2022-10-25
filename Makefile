@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc all-data gse m1_10x lib lib-py lib-r write-lib init fmt_10x
+.PHONY: clean clean-build clean-pyc all-data gse m1_10x lib lib-py lib-r write-lib init fmt_10x help
 .DEFAULT_GOAL := help
 
 clean: clean-build clean-pyc
@@ -47,8 +47,12 @@ write-lib: ## export reqired packages
 	docker exec algebra_ver822-jupyterlab-1 pip list --format=freeze > ./tools/requirements_py.txt
 	docker exec  algebra_ver822-rstudio-1 Rscript ./home/rstudio/tools/export_deps.R
 
-init:
+init: ## set up essentials
+	sh auth.sh docker-compose.yml
+	docker compose up -d
 	make all-data
 	docker exec algebra_dev-jupyterlab-1 touch ./tools/requirements.txt
 	make lib
+
+help: ## user guide
 
