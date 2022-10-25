@@ -1,4 +1,5 @@
 # algebra_ver822
+![DOI](https://img.shields.io/badge/DOI-unknown-blue.svg?longCache=true)
 <div align="center">
 <img src="./doc_img/graphical_abstract.PNG" alt="graphical abstract" width="300" height="300" title="graphical abstract">
 </div>
