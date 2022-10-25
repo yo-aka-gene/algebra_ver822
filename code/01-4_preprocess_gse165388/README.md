@@ -7,7 +7,7 @@ graph LR
     C("GW11")=="preprocess"==> G("GW11")
     D("GW12")=="preprocess"==> H("GW12")
 
-    E-."conjugated".->I(("GSE165388"))
+    E-."conjugated".->I(("Comparison of DEG"))
     F-."conjugated".->I
     G-."conjugated".->I
     H-."conjugated".->I
@@ -23,24 +23,3 @@ graph LR
 - GW10: [01_preprocess_GSE165388_gw10.Rmd](./01_preprocess_GSE165388_gw10.Rmd)
 - GW11: [01_preprocess_GSE165388_gw11.Rmd](./01_preprocess_GSE165388_gw11.Rmd)
 - GW12: [01_preprocess_GSE165388_gw12.Rmd](./01_preprocess_GSE165388_gw12.Rmd)
-
-
----
-# Whole Picture of the Analysis
-```mermaid
-graph LR
-I(("GSE165388"))-."Factor Analysis".->J("Cell Classes")-."GRN".->K{"comparison"}
-
-    E("GW9")-."DEG".->L("annotation")
-    F("GW10")-."DEG".->M("annotation")
-    G("GW11")-."DEG".->N("annotation")
-    H("GW12")-."DEG".->O("annotation")
-
-    L-.->P{"comparison"}
-    M-.->P
-    N-.->P
-    O-.->P
-
-    K-."Calcualte Simirality".->Q(("m1_10x"))
-    P-."check consistency".->Q
-```
