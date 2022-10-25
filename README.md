@@ -1,6 +1,6 @@
 # algebra_ver822
-<div style="text-align: center">
-    <img src="./doc_img/graphical_abstract.PNG" alt="graphical abstract" width="300" height="300" title="graphical abstract"  style="display: block; margin: auto;">
+<div align="center">
+<img src="./doc_img/graphical_abstract.PNG" alt="graphical abstract" width="300" height="300" title="graphical abstract">
 </div>
 - Analysis codes for "A set-theoretic definition of cell types with an algebraic structure on gene regulatory networks and application in annotation of RNA-seq data"
 
