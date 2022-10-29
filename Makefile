@@ -50,8 +50,8 @@ write-lib: ## export reqired packages
 init: ## set up essentials
 	sh auth.sh docker-compose.yml
 	docker compose up -d
+	sh setup_r.sh algebra_ver822-rstudio-1
 	make all-data
-	docker exec algebra_dev-jupyterlab-1 touch ./tools/requirements.txt
 	make lib
 
 help: ## user guide
