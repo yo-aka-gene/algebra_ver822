@@ -1,5 +1,5 @@
 # algebra_ver822
-[![DOI](https://img.shields.io/badge/DOI-preaccepted-blue.svg?longCache=true)]()
+[![DOI](https://img.shields.io/badge/DOI-10.1016/j.stemcr.2022.10.015-blue.svg?longCache=true)](https://doi.org/10.1016/j.stemcr.2022.10.015)
 [![PMID](https://img.shields.io/badge/PMID-preaccepted-orange.svg?longCache=true)]()
 <div align="center">
 <img src="./doc_img/graphical_abstract.PNG" alt="graphical abstract" width="300" height="300" title="graphical abstract">
